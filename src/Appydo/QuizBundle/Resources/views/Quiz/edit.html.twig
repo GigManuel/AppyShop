@@ -1,0 +1,31 @@
+{% extends 'AppydoQuizBundle::layout.html.twig' %}
+
+{% block title %}
+    Editer une réponse
+{% endblock %}
+
+{% block content %}
+<form action="{{ path('quiz_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+
+<!-- Top Content -->
+<div id="top-content">
+    <span class="rubrique">Edition d'une réponse</span>
+</div>
+
+<div id="list-content">
+    <p><label>Réponse :</label> {{ form_widget(edit_form.name) }}</p>
+    <label>Cacher : {{ form_widget(edit_form.hide) }}</label>
+    <label>Réponse correcte : {{ form_widget(edit_form.correct) }}</label>
+    {{ form_widget(edit_form._token) }}
+    <p>
+        <button type="submit" class="next-step">Editer</button>
+        <a class="next-step" href="{{ path('subject_show',{'id':entity.subject.id}) }}">
+            Retour
+        </a>
+    </p>
+</div>
+</div>
+</form>
+
+
+{% endblock %}

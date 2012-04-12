@@ -1,0 +1,23 @@
+{% macro hasErrors(field) %}
+    {% if form_errors(field)|length > 1 %}
+        {{ 'error' }}
+    {% endif %}
+{% endmacro %}
+
+{% block field_errors %}
+{% spaceless %}
+    {% for error in errors %}
+        <span class="label label-important">{{ error.messageTemplate|trans(error.messageParameters, 'validators') }}</span>
+    {% endfor %}
+{% endspaceless %}
+{% endblock %}
+
+{% block field_row %}
+    <div class="control-group {{_self.hasErrors(form)}}">
+        {{ form_label(form, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">
+            {{ form_widget(form, _context) }}
+            {{ form_errors(form) }}
+        </div>
+    </div>
+{% endblock field_row %}

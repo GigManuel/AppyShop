@@ -1,0 +1,66 @@
+{% extends 'AppydoTestBundle::admin.html.twig' %}
+
+{% block title "Topic list" %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Topic list</h1>
+</div>
+
+<form action="{{ path('topic') }}" method="post">
+    <div>
+		<input type="text" />
+        <button class="btn" type="submit">Search</button>
+    </div>
+</form>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Rss</th>
+            <th>Comment</th>
+            <th>Created</th>
+            <th>Updated</th>
+            <th>Language</th>
+            <th>Author</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('topic_edit', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+            <td>{{ entity.rss }}</td>
+            <td>{{ entity.comment }}</td>
+            <td>{% if entity.created %}{{ entity.created|date('Y-m-d H:i:s') }}{% endif%}</td>
+            <td>{% if entity.updated %}{{ entity.updated|date('Y-m-d H:i:s') }}{% endif%}</td>
+            <td>{{ entity.language }}</td>
+            <td><a href="{{ path('user_show', { 'id': entity.author.id }) }}">{{ entity.author }}</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<div class="pagination">
+  <ul>
+    <li><a href="{{ path('_topic_list',{page:previous}) }}">Prev</a></li>
+    <li class="active">
+      <a href="{{ path('_topic_list',{page:1}) }}">1</a>
+    </li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="{{ path('_topic_list',{page:next}) }}">Next</a></li>
+  </ul>
+</div>
+
+<div class="form-actions">
+    <a class="btn btn-primary" href="{{ path('topic_new') }}">
+        <i class="icon-plus icon-white"></i>
+        Topic
+    </a>
+    <a class="btn" href="{{ path('_appydo') }}">
+        Home
+    </a>
+</div>
+{% endblock %}

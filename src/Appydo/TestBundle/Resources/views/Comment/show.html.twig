@@ -1,0 +1,50 @@
+{% extends 'AppydoTestBundle::admin.html.twig' %}
+
+{% block title "Comment list" %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Comment</h1>
+</div>
+
+<table class="table table-striped">
+    <tbody>
+        <tr>
+            <th>Topic</th>
+            <td><a href="{{ path('topic_edit', { 'id': (entity.topic)?entity.topic.id:0 }) }}">{{ entity.topic }}</a></td>
+        </tr>
+        <tr>
+            <th>Name</th>
+            <td>{{ entity.name }}</td>
+        </tr>
+        <tr>
+            <th>Hide</th>
+            <td>{{ entity.hide }}</td>
+        </tr>
+        <tr>
+            <th>Created</th>
+            <td>{{ entity.created|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Updated</th>
+            <td>{{ entity.updated|date('Y-m-d H:i:s') }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="well">
+{{ entity.content }}
+</div>
+
+    <div class="form-actions">
+        <button class="btn btn-primary" type="submit">Reply</button>
+        <a class="btn" href="{{ path('comment') }}">
+            List
+        </a>
+    </div>
+
+    <form action="{{ path('comment_delete', { 'id': entity.id }) }}" method="post">
+        {{ form_widget(delete_form) }}
+        <button class="btn btn-danger" type="submit">Delete</button>
+    </form>
+{% endblock %} 

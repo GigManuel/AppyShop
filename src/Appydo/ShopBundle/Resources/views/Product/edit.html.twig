@@ -1,0 +1,29 @@
+{% extends 'AppydoTestBundle::admin.html.twig' %}
+
+{% block title "Product edit" %}
+
+{% block content %}
+
+<form action="{{ path('product_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+<fieldset>
+<legend>Product edit</legend>
+    {{ form_widget(edit_form) }}
+    <div class="form-actions">
+        <button class="btn btn-primary" type="submit">
+            Save
+        </button>
+        <a class="btn" href="{{ path('_appydo_admin_shop_product') }}">
+            List
+        </a>
+    </div>
+</fieldset>
+</form>
+
+    <form action="{{ path('product_delete', { 'id': entity.id }) }}" method="post">
+
+        {{ form_widget(delete_form) }}
+        <button class="btn btn-danger" type="submit">Delete</button>
+
+    </form>
+
+{% endblock %}

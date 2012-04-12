@@ -1,0 +1,92 @@
+{% extends 'AppydoTestBundle::admin.html.twig' %}
+
+{% block title "Appydo Administration - Project" %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Project</h1>
+</div>
+
+<table class="table table-striped">
+    <tbody>
+        <tr>
+            <th>Name</th>
+            <td>{{ entity.name }}</td>
+        </tr>
+        <tr>
+            <th>Author</th>
+            <td>{{ entity.author }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ entity.description }}</td>
+        </tr>
+        <tr>
+            <th>Theme</th>
+            <td>{{ entity.theme }}</td>
+        </tr>
+        <tr>
+            <th>Keywords</th>
+            <td>{{ entity.keywords }}</td>
+        </tr>
+        <tr>
+            <th>Banner</th>
+            <td>{{ entity.banner }}</td>
+        </tr>
+        <tr>
+            <th>Note</th>
+            <td>{{ entity.note }}</td>
+        </tr>
+        <tr>
+            <th>Footer</th>
+            <td>{{ entity.footer }}</td>
+        </tr>
+        <tr>
+            <th>Subtitle</th>
+            <td>{{ entity.subtitle }}</td>
+        </tr>
+        <tr>
+            <th>Hits</th>
+            <td>{{ entity.hits }}</td>
+        </tr>
+        <tr>
+            <th>Menu</th>
+            <td>{{ entity.menu }}</td>
+        </tr>
+        <tr>
+            <th>Comment</th>
+            <td>{{ entity.comment }}</td>
+        </tr>
+        <tr>
+            <th>Contact</th>
+            <td>{{ entity.contact }}</td>
+        </tr>
+        <tr>
+            <th>Hide</th>
+            <td>{{ entity.hide }}</td>
+        </tr>
+        <tr>
+            <th>Config</th>
+            <td>{{ entity.config }}</td>
+        </tr>
+        <tr>
+            <th>Created</th>
+            <td>{{ entity.created|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Updated</th>
+            <td>{{ entity.updated|date('Y-m-d H:i:s') }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="form-actions">
+    <a class="btn btn-primary" href="{{ path('project_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    <a class="btn" href="{{ path('project') }}">
+        List
+    </a>
+</div>
+
+{% endblock %}

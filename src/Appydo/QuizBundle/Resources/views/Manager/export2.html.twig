@@ -1,0 +1,152 @@
+<!doctype html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <!-- Use the .htaccess and remove these lines to avoid edge case issues.
+       More info: h5bp.com/b/378 -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Quiz</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
+
+  <!-- CSS: implied media=all -->
+  <!-- CSS concatenated and minified via ant build script-->
+  <link rel="stylesheet" href="css/style.css">
+  <link href='http://fonts.googleapis.com/css?family=Terminal+Dosis' rel='stylesheet' type='text/css'>
+  <!-- end CSS-->
+
+  <!-- All JavaScript at the bottom, except for Modernizr / Respond.
+       Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
+       For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
+  <script src="js/modernizr-2.0.6.min.js"></script>
+<script type="text/javascript">
+    var good = 0;
+    var bad  = 0;
+    // var next = 1;
+    function nextquizz(present) {
+        var next = present+1;
+        document.getElementById("quizz"+present).style.display="none";
+        if (document.getElementById("quizz"+next))
+            document.getElementById("quizz"+next).style.display="block";
+        else
+            total(document.myform.result);
+    }
+    function prevquizz(present) {
+        var next = present-1;
+        document.getElementById("quizz"+present).style.display="none";
+        if (document.getElementById("quizz"+next))
+            document.getElementById("quizz"+next).style.display="block";
+        else
+            total(document.myform.result);
+    }
+    function total(field) {
+        document.getElementById("total").innerHTML = "";
+        for (i = 0; i < field.length; i++) {
+            if (field[i].checked==true) {
+                // document.getElementById("total").innerHTML += field[i].value;
+                if (field[i].getAttribute("correct")=="true") {
+                    good++;
+                    field[i].parentNode.style.background="green";
+                } else {
+                    bad++;
+                    field[i].parentNode.style.background="red";
+                }
+            }
+        }
+        document.getElementById("total").innerHTML += "<p>Bonne(s) r&eacute;ponse(s) : "+good+"</p>";
+        document.getElementById("total").innerHTML += "<p>Mauvaise(s) r&eacute;ponse(s) : "+bad+"</p>";
+        good = 0;
+        bad  = 0;
+    }
+</script>
+</head>
+
+<body>
+
+  <div id="container">
+    <header id="header">
+      <h1><a href="#">Quiz</a></h1>
+    </header>
+    
+    <div id="main" role="main" class="clearfix">
+      
+      <!-- Content Main -->
+      <div id="content">
+        <div id="total">
+            {% for subject in subjects %}
+                <h2>Question {{cpt}}</h2>
+                <p>{{subject.description}}</p>
+            {% endfor %}
+        </div>
+        <h1>{{ entity.name }}</h1>
+        {% set cpt = 1 %}
+        <form name="myform">
+
+            {% for subject in subjects %}
+            {% if cpt==1 %}
+                <div id="quizz{{cpt}}">
+            {% else %}
+                <div id="quizz{{cpt}}" style="display: none;">
+            {% endif %}
+                <h2>Question {{cpt}}</h2>
+                <h3>{{subject.name}}</h3>
+                <p>{{subject.description}}</p>
+                {% for item in subject.quizz %}
+                {# list items:quizz.find("bySubject.id", subject.id).fetch(), as:'item' #}
+                    <p><input name="result" type="checkbox" value="{{item.id}}" correct="{{item.correct?"true":"false"}}" /> {{item.name}}</p>
+                {% endfor %}
+                <input id="cpt" name="cpt" type="hidden" value="{{cpt}}" />
+                <p>
+                    <input type="button" value="Pr&eacute;c&eacute;dent" onclick="prevquizz({{cpt}});return false;" />
+                    <input type="button" value="Suivant" onclick="nextquizz({{cpt}});return false;" />
+                </p>
+                {% set cpt = cpt+1 %}
+                </div>
+            {% endfor %}
+            {#<p><input type="button" value="Valider" onclick="total(document.myform.result);return false;" /></p>#}
+
+        </form>
+
+        <p><a href="#">Recommencer</a></p>
+      </div>
+    </div>
+    <footer id="footer">
+      Copyright © 2012 Milliweb. All rights reserved.
+    </footer>
+  </div> <!--! end of #container -->
+
+
+  <!-- JavaScript at the bottom for fast page loading -->
+
+  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/jquery-1.6.2.min.js"><\/script>')</script>
+
+
+  <!-- scripts concatenated and minified via ant build script-->
+  <script defer src="js/plugins.js"></script>
+  <script defer src="js/script.js"></script>
+  <!-- end scripts-->
+
+
+  <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
+       chromium.org/developers/how-tos/chrome-frame-getting-started -->
+  <!--[if lt IE 7 ]>
+    <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+    <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+  <![endif]-->
+  
+</body>
+</html>

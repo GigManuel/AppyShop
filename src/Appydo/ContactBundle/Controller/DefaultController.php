@@ -1,0 +1,73 @@
+<?php
+
+namespace Appydo\ContactBundle\Controller;
+
+use Appydo\ContactBundle\Entity\Contact;
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Appydo\ContactBundle\Form\ContactType;
+
+class DefaultController extends Controller
+{
+    /**
+     * @Route("/", name="_appydo_contact")
+     * @Template()
+     */
+    public function indexAction()
+    {
+        $contact = new Contact();
+        $form    = $this->createForm(new ContactType(),$contact);
+        return array(
+            'contact' => $form->createView(),
+            'theme'   => (isset($project))?$project->getTheme():'default',
+            );
+    }
+
+    /**
+     * @Route("/send", name="_appydo_send")
+     * @Method("post")
+     * @Template()
+     */
+    public function sendAction()
+    {
+        $request = $this->getRequest();
+        $contact = $request->request->get('contact');
+        $entity  = new Contact();
+        $form    = $this->createForm(new ContactType(), $entity);
+        $form->bindRequest($request);
+        if ($form->isValid()) {
+            $message = \Swift_Message::newInstance()
+            ->setSubject($contact['subject'])
+            ->setFrom($contact['email'])
+            ->setTo('recipient@example.com')
+            ->setBody($this->renderView('ContactBundle:Mail:email.txt.twig', array('name' => $contact['name'])));
+            // $this->get('mailer')->send($message);
+            
+            // Send a copy to the author
+            if (isset($contact['copy'])) {
+                $message = \Swift_Message::newInstance()
+                ->setSubject($contact['subject'])
+                ->setFrom($contact['email'])
+                ->setTo($contact['email'])
+                ->setBody($this->renderView('ContactBundle:Mail:email.txt.twig', array('name' => $contact['name'])));
+            } 
+            
+            return array(
+                'name'    => $contact['name'],
+                'subject' => $contact['subject'],
+                'message' => $contact['message'],
+                'email'   => $contact['email'],
+                'copy'    => isset($contact['copy']),
+                'theme'   => (isset($project))?$project->getTheme():'default',
+                );
+        }
+        return $this->render("ContactBundle:Default:index.html.twig", array(
+            'entity'  => $entity,
+            'contact' => $form->createView(),
+            'theme'   => (isset($project))?$project->getTheme():'default',
+        ));
+    }
+}

@@ -1,0 +1,69 @@
+{% extends 'AppydoTestBundle::admin.html.twig' %}
+
+{% block title "Files" %}
+
+{% block content %}
+
+<form class="form-horizontal" action="{{ path('document') }}" method="post" {{ form_enctype(form) }}>
+<fieldset>
+<legend>Upload file</legend>
+    {{ form_errors(form) }}
+
+    {% if uploadDirExit==false %}
+    <div class="alert alert-error">
+        <strong>Error !</strong> Upload directory not exist.
+    </div>
+	{% endif %}
+
+    <div class="control-group">
+        {{ form_label(form.file, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(form.file) }}</div>
+        {{ form_errors(form.file) }}
+    </div>
+
+    {{ form_widget(form._token) }}
+
+    <div class="form-actions">
+        <button class="btn btn-primary" type="submit">Upload</button>
+    </div>
+</form>
+
+<form class="form-horizontal" action="{{ path('document_do') }}" method="post" {{ form_enctype(form) }}>
+{% for key, file in listFiles %}
+    <div style="clear:both">
+		<div style="float:left;margin-bottom:10px;margin-right:10px;">
+			<img src="http://127.0.0.1/~jimmyy/Symfony2/www/uploads/1/{{ file }}" style="border-radius: 10px;width:80px;height:80px;" />
+		</div>
+                <div class="well" style="margin-left: 100px">
+                    <div>
+                            <a href="/uploads/{{ file }}">{{ file }}</a>
+                    </div>
+                    <div>
+                            {{ sizes[key] }} ko
+                    </div>
+                    <div>
+                            <button type="submit" class="btn" name="rename" value="{{file}}">
+                                    Rename
+                            </button>
+                            <button type="submit" class="btn btn-danger" name="delete" value="{{file}}">
+                                    Delete
+                            </button>
+                    </div>
+                </div>
+	</div>
+{% endfor %}
+</form>
+    <div style="clear:both"></div>
+<form class="form-horizontal" action="{{ path('document') }}" method="post" {{ form_enctype(form_dir) }}>
+<fieldset>
+<legend>New directory</legend>
+    
+    {{ form_errors(form_dir) }}
+
+    {{ form_widget(form_dir.name) }}
+    {{ form_errors(form_dir.name) }}
+    <button class="btn btn-primary" type="submit">Create</button>
+    {{ form_widget(form_dir._token) }}
+
+</form>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'AppydoTestBundle::admin.html.twig' %}
+
+{% block title "Appydo Administration" %}
+
+{% block content %}
+        {% if project.hide %}
+            <div class="alert alert-block">
+                <a class="close" data-dismiss="alert">×</a>
+                <h4 class="alert-heading">Warning!</h4>
+                The project is not public.
+            </div>
+        {% endif %}
+        {% if project.ban %}
+            <div class="alert alert-error alert-block">
+                <a class="close" data-dismiss="alert">×</a>
+                <h4 class="alert-heading">Warning!</h4>
+                the project is banished.
+            </div>
+        {% endif %}
+
+    <div class="form-actions" style="text-align:center">
+        <a class="btn btn-primary" href="{{ path('topic_new') }}">Nouvelle page</a>
+        <a class="btn" href="{{ path('project_new') }}">Nouveau project</a>
+        <a class="btn" href="{{ path('project') }}">Liste projets</a>
+    </div>
+
+    <form class="form-horizontal" action="{{ path('_appydo_admin_note', { 'id': project.id }) }}" method="post" {{ form_enctype(note_form) }}>
+        <p style="text-align: center;">
+            {{ form_widget(note_form.note, { 'attr': {'style': 'width: 400px;height: 100px;border-color: yellow;background-color: #FFFAAA;padding: 10px;'}}) }}
+        </p>
+        {{ form_widget(note_form._token) }}
+
+        <div class="form-actions">
+            <button class="btn btn-primary" type="submit">
+                Save
+            </button>
+        </div>
+    </form>
+
+    <div class="well">
+        <p>Hits : {{project.hits}}</p>
+        <p>Contact : {{project.contact}}</p>
+    </div>
+
+{% endblock %}

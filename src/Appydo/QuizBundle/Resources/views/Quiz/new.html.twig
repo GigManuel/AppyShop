@@ -1,0 +1,29 @@
+{% extends 'AppydoQuizBundle::layout.html.twig' %}
+
+{% block title %}
+    Ajouter une réponse
+{% endblock %}
+
+{% block content %}
+<form action="{{ path('quiz_create',{'subject':subject}) }}" method="post" {{ form_enctype(form) }}>
+
+<!-- Top Content -->
+<div id="top-content">
+    <span class="rubrique">Ajouter une réponse</span>
+</div>
+
+<div id="list-content">
+    <p><label>Réponse :</label> {{ form_widget(form.name) }}</p>
+    <label>Cacher : {{ form_widget(form.hide) }}</label>
+    <label>Réponse correcte : {{ form_widget(form.correct) }}</label>
+    <input type="hidden" id="appydo_quizbundle_quiztype_subject" name="appydo_quizbundle_quiztype[subject]" value="{{subject}}" />
+    {{ form_widget(form._token) }}
+    <p>
+        <button type="submit">Create</button>
+        <a href="{{ path('subject_show',{'id':subject}) }}">
+            Retour
+        </a>
+    </p>
+</div>
+</form>
+{% endblock %}

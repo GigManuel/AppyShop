@@ -1,0 +1,53 @@
+{% extends 'AppydoTestBundle::admin.html.twig' %}
+
+{% block title "Topic new" %}
+
+{% block content %}
+
+<form action="{{ path('topic_create') }}" method="post" {{ form_enctype(form) }}>
+<fieldset>
+<legend>Topic creation</legend>
+    {{ form_errors(form) }}
+
+    {{ form_label(form.name, null, { 'attr': {'class': 'control-label'}}) }}
+    {{ form_widget(form.name) }}
+    {{ form_errors(form.name) }}
+
+    <div class="control-group">
+        {{ form_label(form.content, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(form.content) }}</div>
+        {{ form_errors(form.content) }}
+    </div>
+
+    <div class="control-group">
+        <label class="control-label">Parameter</label>
+        <div class="controls">
+            <label class="checkbox" for="appydo_testbundle_topictype_hide">
+                {{ form_widget(form.hide) }}
+                Hide
+                {{ form_errors(form.hide) }}
+            </label>
+        </div>
+        <div class="controls">
+            <label class="checkbox" for="appydo_testbundle_topictype_comment">
+                {{ form_widget(form.comment) }}
+                Comment
+                {{ form_errors(form.comment) }}
+            </label>
+        </div>
+    </div>
+
+    {{ form_widget(form._token) }}
+
+    <div class="form-actions">
+        <button class="btn btn-primary" type="submit">
+            Save
+        </button>
+        <a class="btn" href="{{ path('user') }}">
+            List
+        </a>
+    </div>
+
+</fieldset>
+</form>
+{% endblock %}

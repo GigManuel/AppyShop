@@ -1,0 +1,63 @@
+{% extends 'AppydoTestBundle::admin.html.twig' %}
+
+{% block title "Topic edit" %}
+
+{% block content %}
+<form class="form-horizontal" action="{{ path('topic_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+<fieldset>
+<legend>Topic edit</legend>
+    {{ form_errors(edit_form) }}
+
+    <div class="control-group">
+        {{ form_label(edit_form.name, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(edit_form.name) }}</div>
+        {{ form_errors(edit_form.name) }}
+    </div>
+
+    <div class="control-group">
+        {{ form_label(edit_form.content, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(edit_form.content) }}</div>
+        {{ form_errors(edit_form.content) }}
+    </div>
+
+    <div class="control-group">
+        <label class="control-label">Parameter</label>
+        <div class="controls">
+            <label class="checkbox" for="appydo_testbundle_topictype_hide">
+                {{ form_widget(edit_form.hide) }}
+                Hide
+                {{ form_errors(edit_form.hide) }}
+            </label>
+        </div>
+        <div class="controls">
+            <label class="checkbox" for="appydo_testbundle_topictype_comment">
+                {{ form_widget(edit_form.comment) }}
+                Comment
+                {{ form_errors(edit_form.comment) }}
+            </label>
+        </div>
+    </div>
+
+    {{ form_widget(edit_form._token) }}
+
+    <div class="form-actions">
+        <button class="btn btn-primary" type="submit">
+            Save
+        </button>
+        <a class="btn" href="{{ path('topic') }}">
+            List
+        </a>
+    </div>
+
+</fieldset>
+</form>
+
+<div class="form-actions">
+    <form action="{{ path('topic_delete', { 'id': entity.id }) }}" method="post">
+
+        {{ form_widget(delete_form) }}
+        <button class="btn btn-danger" type="submit">Delete</button>
+
+    </form>
+</div>
+{% endblock %}

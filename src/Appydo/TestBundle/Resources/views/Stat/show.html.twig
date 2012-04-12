@@ -1,0 +1,30 @@
+<h1>Stat</h1>
+
+<table class="record_properties">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Url</th>
+            <td>{{ entity.url }}</td>
+        </tr>
+        <tr>
+            <th>Ip</th>
+            <td>{{ entity.ip }}</td>
+        </tr>
+        <tr>
+            <th>Hide</th>
+            <td>{{ entity.hide }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('stat') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>

@@ -1,0 +1,45 @@
+{% extends '::'~theme~'/base.html.twig' %}
+
+{% block title "Contact" %}
+
+{% form_theme contact 'ContactBundle:Form:bootstrap.html.twig' %}
+
+{% block content %}
+<form class="form-horizontal" action="{{ path('_appydo_send') }}" method="post" {{ form_enctype(contact) }}>
+<fieldset>
+<legend>Contact</legend>
+    {{ form_errors(contact) }}
+
+    {{ form_row(contact.name) }}
+    {{ form_row(contact.email) }}
+    {{ form_row(contact.phone) }}
+    {{ form_row(contact.subject) }}
+    {{ form_row(contact.message) }}
+    {{ form_row(contact.file) }}
+    {{ form_row(contact.copy) }}
+
+    <div class="control-group">
+        {#{ form_label(form, null, { 'attr': {'class': 'control-label'}}) }#}
+        <label><img src="{{ path('captcha') }}" id="captcha" /></label>
+        <div class="controls">
+            <input type="text" name="captcha" id="captcha-form" />
+            <!-- CHANGE TEXT LINK -->
+            <a href="#" onclick="
+                document.getElementById('captcha').src='{{ path('captcha') }}?'+Math.random();"
+                id="change-image">Not readable? Change text.</a>
+        </div>
+    </div>
+    
+
+    {{ form_widget(contact._token) }}
+
+    <div class="form-actions">
+        <button class="btn btn-primary" type="submit">Confirmer</button>
+        <a class="btn" href="{{ path('_appydo') }}">
+            Home
+        </a>
+    </div>
+
+</fieldset>
+</form>
+{% endblock %}

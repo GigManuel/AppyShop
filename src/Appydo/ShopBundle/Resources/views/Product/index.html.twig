@@ -1,0 +1,42 @@
+{% extends 'AppydoTestBundle::admin.html.twig' %}
+
+{% block title "Product list" %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Product list</h1>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Created</th>
+            <th>Updated</th>
+            <th>Hide</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('_appydo_admin_shop_product_edit', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+            <td>{{ entity.price }}</td>
+            <td>{% if entity.created %}{{ entity.created|date('Y-m-d H:i:s') }}{% endif%}</td>
+            <td>{% if entity.updated %}{{ entity.updated|date('Y-m-d H:i:s') }}{% endif%}</td>
+            <td>{{ entity.hide }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<div class="form-actions">
+    <a class="btn btn-primary" href="{{ path('product_new') }}">
+        <i class="icon-plus icon-white"></i>
+        New
+    </a>
+    <a class="btn" href="{{ path('_appydo') }}">
+        Home
+    </a>
+</div>
+{% endblock %}

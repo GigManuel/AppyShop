@@ -1,0 +1,51 @@
+{% extends 'AppydoTestBundle::admin.html.twig' %}
+
+{% block title "Menu edit" %}
+
+{% block content %}
+<form class="form-horizontal" action="{{ path('menu_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+<fieldset>
+<legend>Menu edit</legend>
+    {{ form_errors(edit_form) }}
+
+    <div class="control-group">
+        {{ form_label(edit_form.name, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(edit_form.name) }}</div>
+        {{ form_errors(edit_form.name) }}
+    </div>
+{#
+    <div class="control-group">
+        {{ form_label(edit_form.url, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(edit_form.url) }}</div>
+        {{ form_errors(edit_form.url) }}
+    </div>
+#}
+    <div class="control-group">
+        {{ form_label(edit_form.menu, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(edit_form.menu) }}</div>
+        {{ form_errors(edit_form.menu) }}
+    </div>
+
+    <div class="control-group">
+        {{ form_label(edit_form.hide, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(edit_form.hide) }}</div>
+        {{ form_errors(edit_form.hide) }}
+    </div>
+
+    {{ form_widget(edit_form._token) }}
+
+    <div class="form-actions">
+        <button class="btn btn-primary" type="submit">Save</button>
+        <a class="btn" href="{{ path('menu') }}">
+            Back
+        </a>
+    </div>
+</form>
+
+
+        <form action="{{ path('menu_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button class="btn btn-danger" type="submit">Delete</button>
+        </form>
+
+{% endblock %}

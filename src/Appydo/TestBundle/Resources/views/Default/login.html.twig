@@ -1,0 +1,39 @@
+{% extends '::'~theme~'/base.html.twig' %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+    <li>
+        <a href="{{ path('_appydo') }}">Home</a> <span class="divider">/</span>
+    </li>
+    <li class="active">
+        <a href="{{ path('_appydo_login') }}">Login</a>
+    </li>
+</ul>
+{% endblock %}
+
+{% block content %}
+
+    {% if error %}
+        <div class="error">{{ error.message }}</div>
+    {% endif %}
+
+    <form class="well" action="{{ path("_appydo_security_check") }}" method="post" id="login">
+        
+        <div>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="_username" value="{{ last_username }}" />
+        </div>
+
+        <div>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="_password" />
+        </div>
+        <div>
+            <button class="btn btn-primary" type="submit">Login</button>
+            <a class="btn" href="{{ path('_appydo') }}">
+                Back
+            </a>
+        </div>
+    </form>
+
+{% endblock %}

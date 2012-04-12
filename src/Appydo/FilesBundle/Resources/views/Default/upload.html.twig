@@ -1,0 +1,52 @@
+{% extends '::'~theme~'/base.html.twig' %}
+
+{% block title "Appydo" %}
+
+{% block content %}
+
+<div class="alert alert-success">
+    Votre fichier à bien été envoyé.
+</div>
+
+<table class="table table-striped">
+    <tbody>
+        <tr>
+            <th>Link</th>
+            <td><a href="{{url}}">{{url}}</a></td>
+        </tr>
+        <tr>
+            <th>Size</th>
+            <td>{{size}} kb</td>
+        </tr>
+        <tr>
+            <th>Type</th>
+            <td>{{type}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<form class="form-horizontal" action="{{ path('_appydo_files_upload') }}" method="post" {{ form_enctype(form) }}>
+<fieldset>
+<legend>Envoyer un nouveau fichier</legend>
+    {{ form_errors(form) }}
+
+    <div style="text-align:center;padding-bottom:2em;padding-top:1em;">
+        {{ form_widget(form.file, { 'attr': {'style': 'font-size:x-large'}}) }}
+        {{ form_errors(form.file) }}
+    </div>
+
+    <p>En hébergeant votre fichier, vous acceptez les <a>conditions générales d'utilisation.</a></p>
+    {{ form_widget(form._token) }}
+
+    <div style="text-align:center">
+        <button class="btn btn-primary btn-large" type="submit">Upload</button>
+    </div>
+</fieldset>
+</form>
+
+<blockquote>
+  <p>Merci d'utiliser AppyFiles pour l'hébergement de vos fichiers.</p>
+  <small>Equipe AppyDo</small>
+</blockquote>
+
+{% endblock %}

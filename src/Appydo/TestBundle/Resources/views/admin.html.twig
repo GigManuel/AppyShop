@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+        <title>{% block title %}Demo Bundle{% endblock %}</title>
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+        <meta name="description" content="{% block description %}{% endblock %}">
+        <meta name="keywords" content="{% block keywords %}{% endblock %}">
+        <meta name="author" content="{% block author %}{% endblock %}">
+        <meta name="robots" content="all" />
+
+        <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <!-- Le styles -->
+        <link href="{{ asset('bundles/appydotest/css/bootstrap.css') }}" rel="stylesheet" />
+        <style type="text/css">
+        body {
+            padding-top: 60px;
+            padding-bottom: 40px;
+        }
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+        .page-header h1 {
+            font-size: medium;
+            font-weight: normal;
+        }
+        </style>
+        <link href="{{ asset('bundles/appydotest/css/bootstrap-responsive.css') }}" rel="stylesheet">
+
+        <!-- Le fav and touch icons -->
+        <link rel="alternate" 
+          type="application/rss+xml" 
+          title="RSS" 
+          href="/rss/rss?id=${global?.id}&name=${global?.name}" />
+        <link rel="shortcut icon" href="/public/images/favicon.ico">
+        <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+        {% block scripts %}
+        {% endblock %}
+    </head>
+    <body>
+
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="brand" href="{{ path('_appydo_admin') }}">Admin</a>
+                <div class="nav-collapse">
+                    <ul class="nav">
+                    <li class="active"><a href="{{ path('_appydo_admin') }}">Home</a></li>
+                    {% if project.name is defined %}
+                        <li><a href="{{ path('_appydo_project',{'name':project.name}) }}">Aperçu</a></li>
+                    {% endif %}
+                    {% if app.user %}
+                        <li><a href="{{ path('_appydo_logout') }}">Logout</a></li>
+                    {% else %}
+                        <li><a href="{{ path('_appydo_login') }}">Login</a></li>
+                        <li><a href="{{ path('user_new') }}">Signup</a></li>
+                    {% endif %}
+                    </ul>
+                    {% if app.user %}
+                    <p class="navbar-text pull-right">
+                        Logged in as <a href="{{ path('user_edit', { 'id': app.user.id }) }}">{{ app.user ? app.user.username : 'Anonymous' }}</a>
+                    </p>
+                    {% endif %}
+                </div><!--/.nav-collapse -->
+                </div>
+            </div>
+        </div>
+
+        {% if app.session.flash('notice') %}
+            <div class="flash-message">
+                <em>Notice</em>: {{ app.session.flash('notice') }}
+            </div>
+        {% endif %}
+
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              {% if app.user.id is defined %}
+              <li class="nav-header">Content</li>
+              <li class="active"><a href="{{ path('topic') }}"><img src="{{ asset('bundles/appydotest/img/admin/pages.png') }}" alt="pages" /> Pages</a></li>
+              <li><a href="{{ path('document') }}"><img src="{{ asset('bundles/appydotest/img/admin/files.png') }}" alt="pages" /> Files</a></li>
+              <li><a href="{{ path('menu') }}"><img src="{{ asset('bundles/appydotest/img/admin/pages.png') }}" alt="pages" /> Menu</a></li>
+              <li><a href="{{ path('mail') }}"><img src="{{ asset('bundles/appydotest/img/admin/comments.png') }}" alt="pages" /> Mail</a></li>
+              <li><a href="{{ path('comment') }}"><img src="{{ asset('bundles/appydotest/img/admin/comments.png') }}" alt="pages" /> Comments</a></li>
+              <li><a href="{{ path('topic_trash') }}"><img src="{{ asset('bundles/appydotest/img/admin/trash.png') }}" alt="trash" /> Corbeille</a></li>
+
+              <li class="nav-header">Shop</li>
+              <li><a href="{{ path('user') }}">Clients</a></li>
+              <li><a href="#">Factures</a></li>
+              <li><a href="#">Inventaire</a></li>
+              <li><a href="#">Commandes</a></li>
+              <li><a href="{{ path('_appydo_admin_shop_category') }}">Catégories</a></li>
+              <li><a href="{{ path('_appydo_admin_shop_product') }}">Produits</a></li>              
+
+              <li class="nav-header">Statistiques</li>
+              <li><a href="{{ path('_appydo_admin_server') }}"><img src="{{ asset('bundles/appydotest/img/admin/comments.png') }}" alt="visiteurs" /> Serveur</a></li>
+              <li><a href="{{ path('_appydo_admin_visitors') }}"><img src="{{ asset('bundles/appydotest/img/admin/comments.png') }}" alt="visiteurs" /> Visiteurs</a></li>
+              <li><a href="{{ path('_appydo_admin_info') }}"><img src="{{ asset('bundles/appydotest/img/admin/comments.png') }}" alt="visiteurs" /> Information</a></li>
+
+              <li class="nav-header">Usine Documentaire</li>
+              <li><a href="{{ path('_appydo_quiz') }}">Quizz</a></li>
+
+              <li class="nav-header">Services</li>
+              <li><a href="{{ path('service_show', {'name' :'calendar'}) }}">Calendar</a></li>
+              <li><a href="#">Mail</a></li>
+              <li><a href="#">Contact</a></li>
+              <li><a href="#">News</a></li>
+              <li><a href="#">Facebook</a></li>
+              <li><a href="#">Twitter</a></li>
+              <li><a href="{{ path('service') }}">Configure</a></li>
+
+
+              <li class="nav-header">Options</li>
+              <li><a href="{{ path('design') }}"><img src="{{ asset('bundles/appydotest/img/admin/system.png') }}" alt="system" /> Design</a></li>
+              {% if project.id is defined %}
+                <li><a href="{{ path('project_edit',{'id':project.id}) }}"><img src="{{ asset('bundles/appydotest/img/admin/system.png') }}" alt="system" /> Parametre</a></li>
+              {% endif %}
+              <li><a href="{{ path('stat') }}"><img src="{{ asset('bundles/appydotest/img/admin/system.png') }}" alt="system" /> Stats</a></li>
+              <li><a href="{{ path('log') }}"><img src="{{ asset('bundles/appydotest/img/admin/log.png') }}" alt="log" /> Log</a></li>
+              
+              <li class="nav-header">Utilisateur</li>
+              <li><a href="{{ path('user_edit',{'id':app.user.id}) }}"><img src="{{ asset('bundles/appydotest/img/admin/profil.png') }}" alt="profil" /> Profil</a></li>
+              <li><a href="{{ path('_appydo_logout') }}"><img src="{{ asset('bundles/appydotest/img/admin/logout.png') }}" alt="logout" /> Déconnection</a></li>
+              {% endif %}
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+
+        <div class="span9">
+        {% block content %}
+        {% endblock %}
+        </div>
+        </div>
+        </div>
+</html>

@@ -1,0 +1,55 @@
+{% extends 'AppydoQuizBundle::layout.html.twig' %}
+
+{% block title %}
+    Ajouter une question
+{% endblock %}
+
+{% block content %}
+    <form action="{{ path('subject_create') }}" method="post" {{ form_enctype(form) }}>
+    <!-- Top Content -->
+    <div id="top-content">
+        <span class="rubrique">Création d’un nouveau quiz - étape 3</span>
+    </div>
+    <!-- Quiz Content -->
+    <div id="list-content">
+        <!-- Etape 2 quiz -->
+        <section class="etape">
+            <div class="titre-etape"><div class="puce-etape">3</div> Ajouter des questions - question {{cpt}}</div>
+            <div class="wrapper">
+
+            <label for="question">Question {{cpt}}</label>
+            {{ form_widget(form.name) }}
+
+            <div class="add-file">
+                <img src="{{ asset('bundles/appydoquiz/img/add-file.png') }}" alt="add-file" />
+                <p class="text-add-file">Ajouter un fichier multimédia</p>
+                {{ form_widget(form.file) }}
+            </div>
+
+            <div class="add-reponses">
+                <p>(2 réponses minimum requises ; coché = bonne réponse)</p>
+                <label for="reponse1">réponse 1</label><input name="quiz[]" type="text" /><input type="checkbox" name="correct[]" value="1" />
+                <label for="reponse2">réponse 2</label><input name="quiz[]" type="text" /><input type="checkbox" name="correct[]" value="2" />
+                <label for="reponse2">réponse 3</label><input name="quiz[]" type="text" /><input type="checkbox" name="correct[]" value="3" />
+                <label for="reponse2">réponse 4</label><input name="quiz[]" type="text" /><input type="checkbox" name="correct[]" value="4" />
+            </div>
+
+            <label for="explication">Explication :</label>
+            {{ form_widget(form.description) }}
+            <input type="hidden" id="appydo_quizbundle_subjecttype_manager" name="appydo_quizbundle_subjecttype[manager]" value="{{manager}}" />
+            {{ form_widget(form._token) }}
+            <div class="add-file">
+                <img src="{{ asset('bundles/appydoquiz/img/add-file.png') }}" alt="" />
+                <p class="text-add-file">Ajouter un fichier multimédia</p>
+                {{ form_widget(form.file_explication) }}
+            </div>
+
+            
+            <button type="submit" class="next-step">Question suivante</button>
+            <a href="{{ path('manager_show',{'id':manager}) }}" class="next-step back">Valider et enregistrer</a>
+            </div>
+        </section>
+    </div>
+    </div>
+    </form>
+{% endblock %}
