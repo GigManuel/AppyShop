@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+        <title>{% block title %}Appydo{% endblock %}</title>
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+
+        {% stylesheets 'default/css/test.min.css' %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+
+        <meta name="description" content="{% block description %}{% endblock %}">
+        <meta name="keywords" content="{% block keywords %}{% endblock %}">
+        <meta name="author" content="{% block author %}{% endblock %}">
+        <meta name="robots" content="all" />
+
+        <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <!-- Le styles -->
+        <link href="{{ asset('bundles/appydotest/css/bootstrap.css') }}" rel="stylesheet" />
+        <style type="text/css">
+        body, input, textarea, p {
+            color: #373737 !important;
+            font: 15px "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+            font-weight: 300 !important;
+            line-height: 1.625 !important;
+        }
+        body {
+            padding-top: 60px;
+            padding-bottom: 40px;
+            /* background-image: url({{ asset('bundles/appydotest/img/background.png') }}); */
+            background-repeat: repeat-x;
+        }
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+        </style>
+        <link href="{{ asset('bundles/appydotest/css/bootstrap-responsive.css') }}" rel="stylesheet">
+
+        <!-- Le fav and touch icons -->
+        <link rel="alternate" 
+          type="application/rss+xml" 
+          title="RSS" 
+          href="/rss/rss?id=${global?.id}&name=${global?.name}" />
+        <link rel="shortcut icon" href="/public/images/favicon.ico">
+        <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+        {% block scripts %}
+        {% endblock %}
+    </head>
+    <body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                {% block project %}
+                    <a class="brand" href="{{ path('_appydo') }}">Appydo</a>
+                {% endblock %}
+                <div class="nav-collapse">
+                    <ul class="nav">
+                    <li class="active"><a href="{{ path('_appydo') }}">Home</a></li>
+                    <li><a href="{{ path('_appydo_contact') }}">Contact</a></li>
+                    {% if app.user %}
+                        <li><a href="{{ path('_appydo_admin') }}">Admin</a></li>
+                        <li><a href="{{ path('_appydo_logout') }}">Logout</a></li>
+                    {% else %}
+                        <li><a href="{{ path('_appydo_login') }}">Login</a></li>
+                        <li><a href="{{ path('user_new') }}">Signup</a></li>
+                    {% endif %}
+                    <li>
+                        <form class="navbar-search pull-left">
+                            <input type="text" class="search-query" placeholder="Search">
+                        </form>
+                    </li>
+                    </ul>
+                    {% if app.user %}
+                    <p class="navbar-text pull-right">
+                        Logged in as <a href="{{ path('user_edit', { 'id': app.user.id }) }}">{{ app.user ? app.user.username : 'Anonymous' }}</a>
+                    </p>
+                    {% endif %}
+                </div><!--/.nav-collapse -->
+                </div>
+            </div>
+        </div>
+
+        {% if app.session.flash('notice') %}
+            <div class="flash-message">
+                <em>Notice</em>: {{ app.session.flash('notice') }}
+            </div>
+        {% endif %}
+
+    <div class="container-fluid">
+        {% block breadcrumb %}
+        <ul class="breadcrumb">
+            <li>
+                <a href="{{ path('_appydo') }}">Home</a>
+            </li>
+        </ul>
+        {% endblock %}
+      <div class="row-fluid">
+        <div class="span2">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Menu</li>
+              {% block menu %}
+              {% endblock %}
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+
+        <div class="span8">
+            <div style="border-radius:20px;background:white;padding: 15px;">
+            {% block content %}
+            {% endblock %}
+            </div>
+        </div>
+        <div class="span2">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Presentation</li>
+              <li>{% block presentation %}{% endblock %}</li>
+            </ul>
+          </div>
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Information</li>
+              <li>{% block information %}{% endblock %}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+        <footer class="footer">
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>
+            <a href="http://www.appyfiles.com">AppyFiles</a>
+            <a href="http://www.appytask.com">AppyTask</a>
+            <a href="http://www.appydo.com">AppyShop</a>
+        </p>
+      </footer>
+    </div>
+</html>

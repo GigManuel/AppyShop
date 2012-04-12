@@ -1,0 +1,49 @@
+FacebookFamousBundle:
+    resource: "@FacebookFamousBundle/Controller/"
+    type:     annotation
+    prefix:   /facebook/famous/
+
+install:
+    resource: "@SensioDistributionBundle/Resources/config/routing/webconfigurator.xml"
+    prefix:   /install
+
+AppydoCaptchaBundle:
+    resource: "@AppydoCaptchaBundle/Controller/"
+    type:     annotation
+    prefix:   /captcha/
+
+AppydoShopBundle:
+    resource: "@AppydoShopBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+AppydoFilesBundle:
+    resource: "@AppydoFilesBundle/Controller/"
+    type:     annotation
+    prefix:   /files/
+
+AppydoQuizBundle:
+    resource: "@AppydoQuizBundle/Controller/"
+    type:     annotation
+    prefix:   /quizz/
+
+ContactBundle:
+    resource: "@ContactBundle/Controller/"
+    type:     annotation
+    prefix:   /contact/
+    
+AppydoTestBundle:
+    resource: "@AppydoTestBundle/Controller/"
+    type:     annotation
+    prefix:   /
+    
+
+
+#root:
+#   resource: "@MilliwebAppCenterBundle/Controller/"
+#   prefix:   /
+
+# Internal routing configuration to handle ESI
+#_internal:
+#   resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
+#   prefix:   /_internal
