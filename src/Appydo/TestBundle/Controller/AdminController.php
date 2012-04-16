@@ -112,6 +112,17 @@ class AdminController extends Controller
     }
     
     /**
+     * @Route("/apc", name="_appydo_admin_apc")
+     * @Template("AppydoTestBundle:Admin:iframe.html.twig")
+     */
+    public function apcAction()
+    {
+        return array(
+            'url' => $this->container->get('templating.helper.assets')->getUrl('apc.php')
+            );
+    }
+    
+    /**
      * @Route("/visitors", name="_appydo_admin_visitors")
      * @Template("AppydoTestBundle:Admin:iframe.html.twig")
      */

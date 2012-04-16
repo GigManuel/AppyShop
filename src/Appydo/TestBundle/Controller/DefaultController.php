@@ -72,7 +72,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/{name}", requirements={"name" = "^((?!(admin|backend|packages|package)).)*(!(/))*$"}, name="_appydo_project")
+     * @Route("/{name}", requirements={"name" = "^((?!(admin)).)*(!(/))*$"}, name="_appydo_project")
      * @Template()
      */
      public function projectAction($name) {

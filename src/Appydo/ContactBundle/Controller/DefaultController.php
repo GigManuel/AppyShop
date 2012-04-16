@@ -4,6 +4,8 @@ namespace Appydo\ContactBundle\Controller;
 
 use Appydo\ContactBundle\Entity\Contact;
 
+use Appydo\TestBundle\Entity\Project;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -13,14 +15,23 @@ use Appydo\ContactBundle\Form\ContactType;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="_appydo_contact")
+     * @Route("/{name}", name="_appydo_contact")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction($name)
     {
+        
         $contact = new Contact();
         $form    = $this->createForm(new ContactType(),$contact);
+        $em      = $this->getDoctrine()->getEntityManager();
+        
+        
+        $query = $em->createQuery('SELECT p FROM AppydoTestBundle:Project p WHERE LOWER(p.name)=?1');
+        $query->setParameter(1, $name);
+        $project = $query->getSingleResult();
+        
         return array(
+            'project' => $project,
             'contact' => $form->createView(),
             'theme'   => (isset($project))?$project->getTheme():'default',
             );
