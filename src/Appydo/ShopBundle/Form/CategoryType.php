@@ -12,6 +12,7 @@ class CategoryType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
+			->add('file')
             ->add('hide')
         ;
     }

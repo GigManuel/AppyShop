@@ -66,7 +66,7 @@ class DefaultController extends Controller
         return array(
             'project' => $project,
             'topics'  => $topics,
-            'theme'   => (isset($project))?$project->getTheme():'default',
+            'theme'   => (isset($project) and $project->getTheme()!='')?$project->getTheme():'default',
             'menus'   => $menus,
             );
     }

@@ -3,6 +3,8 @@
 namespace Appydo\ShopBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Appydo\ShopBundle\Entity\Product
@@ -70,6 +72,59 @@ class Product
      * @ORM\Column(name="hide", type="boolean")
      */
     private $hide;
+
+    /**
+     * @Assert\File(maxSize="6000000")
+     */
+    public $file;
+    
+    /**
+     * @ORM\Column(type="string", length=1000, nullable=true)
+     */
+    public $path;
+    
+    public function getAbsolutePath()
+    {
+        return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->path;
+    }
+    
+    public function getWebPath()
+    {
+        return null === $this->path ? null : $this->getUploadDir().$this->id.'/'.$this->path;
+    }
+
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw when displaying uploaded doc/image in the view.
+        return 'uploads/products/';
+    }
+
+    public function getUploadRootDir($id)
+    {
+        if (null === $id) {
+            return;
+        }
+        return __DIR__.'/../../../../www/uploads/products/'.$id;
+    }
+    
+    public function upload($id)
+    {
+        if (null === $this->file) {
+            return;
+        }
+        
+        $image = new SimpleImage();
+        $image->load($this->file);
+        if ($image->getWidth()) {
+            $image->resizeToWidth(100);
+            $image->save($this->file);
+        }
+        
+        $this->file->move($this->getUploadRootDir($this->id), $this->file->getClientOriginalName());
+
+        $this->path = $this->file->getClientOriginalName();
+        $this->file = null;
+    }
 
     public function __construct() {
         $this->created = new \DateTime();
