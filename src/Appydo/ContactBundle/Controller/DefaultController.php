@@ -29,11 +29,11 @@ class DefaultController extends Controller
         $query = $em->createQuery('SELECT p FROM AppydoTestBundle:Project p WHERE LOWER(p.name)=?1');
         $query->setParameter(1, $name);
         $project = $query->getSingleResult();
-        
+
         return array(
             'project' => $project,
             'contact' => $form->createView(),
-            'theme'   => (isset($project))?$project->getTheme():'default',
+            'theme'   => (isset($project) and $project->getTheme()!='')?$project->getTheme():'default',
             );
     }
 
@@ -72,13 +72,13 @@ class DefaultController extends Controller
                 'message' => $contact['message'],
                 'email'   => $contact['email'],
                 'copy'    => isset($contact['copy']),
-                'theme'   => (isset($project))?$project->getTheme():'default',
+                'theme'   => (isset($project) and $project->getTheme()!='') ? $project->getTheme() : 'default',
                 );
         }
         return $this->render("ContactBundle:Default:index.html.twig", array(
             'entity'  => $entity,
             'contact' => $form->createView(),
-            'theme'   => (isset($project))?$project->getTheme():'default',
+            'theme'   => (isset($project) and $project->getTheme()!='')?$project->getTheme():'default',
         ));
     }
 }
