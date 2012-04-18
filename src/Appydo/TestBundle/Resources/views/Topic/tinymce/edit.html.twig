@@ -125,13 +125,4 @@
 
 </fieldset>
 </form>
-
-<div class="form-actions">
-    <form action="{{ path('topic_delete', { 'id': entity.id }) }}" method="post">
-
-        {{ form_widget(delete_form) }}
-        <button class="btn btn-danger" type="submit">Delete</button>
-
-    </form>
-</div>
 {% endblock %}

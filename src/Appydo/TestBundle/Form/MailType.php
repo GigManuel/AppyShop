@@ -5,6 +5,7 @@ namespace Appydo\TestBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
 
+
 class MailType extends AbstractType
 {
     public function buildForm(FormBuilder $builder, array $options)

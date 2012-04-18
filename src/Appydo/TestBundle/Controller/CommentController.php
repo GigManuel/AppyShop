@@ -54,7 +54,8 @@ class CommentController extends Controller
 
         return array(
             'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        );
+            'delete_form' => $deleteForm->createView(),
+        );
     }
 
     /**
@@ -65,8 +66,10 @@ class CommentController extends Controller
      */
     public function newAction()
     {
+        $user   = $this->get('security.context')->getToken()->getUser();
         $entity = new Comment();
-        $form   = $this->createForm(new CommentType(), $entity);
+
+        $form   = $this->createForm(new CommentType($user->getCurrentId()), $entity);
 
         return array(
             'entity' => $entity,
@@ -83,9 +86,12 @@ class CommentController extends Controller
      */
     public function createAction()
     {
-        $entity  = new Comment();
+        $user   = $this->get('security.context')->getToken()->getUser();
+        $entity = new Comment();
+
+        $form   = $this->createForm(new CommentType($user->getCurrentId()), $entity);
         $request = $this->getRequest();
-        $form    = $this->createForm(new CommentType(), $entity);
+
         $form->bindRequest($request);
 
         if ($form->isValid()) {
