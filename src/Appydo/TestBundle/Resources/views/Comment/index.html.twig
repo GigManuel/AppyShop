@@ -7,27 +7,34 @@
     <h1>Comment list</h1>
 </div>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Topic</th>
-            <th>Name</th>
-            <th>Hide</th>
-            <th>Created</th>
-            <th>Updated</th>
-        </tr>
-    </thead>
-    <tbody>
+<table>
+	<tr>
+		<th>Sélectionnez un topic</th>
+		<th>Derniers messages (tous topics)</th>
+	</tr>
+	<tr>
+		<td>
+			{% for topic in topics %}
+				<p>{{ topic }}</p>
+			{% endfor %}
+		</td>
+		<td>
+
     {% for entity in entities %}
-        <tr>
-            <td><a href="{{ path('topic_edit', { 'id': (entity.topic)?entity.topic.id:0 }) }}">{{ entity.topic }}</a></td>
-            <td><a href="{{ path('comment_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
-            <td>{{ entity.hide }}</td>
-            <td>{% if entity.created %}{{ entity.created|date('Y-m-d H:i:s') }}{% endif%}</td>
-            <td>{% if entity.updated %}{{ entity.updated|date('Y-m-d H:i:s') }}{% endif%}</td>
-        </tr>
+        
+        <h2><a href="{{ path('comment_show', { 'id': entity.id }) }}">{{ entity.name }}</a></h2>
+		<p>
+			{{ entity.content }}
+		</p>
+		<p>
+			<a href="{{ path('topic_edit', { 'id': (entity.topic)?entity.topic.id:0 }) }}">{{ entity.topic }}</a>
+			{% if entity.created %}{{ entity.created|date('Y-m-d H:i:s') }}{% endif%}
+			{% if entity.updated %}{{ entity.updated|date('Y-m-d H:i:s') }}{% endif%}
+		</p>
     {% endfor %}
-    </tbody>
+
+		</td>
+	</tr>
 </table>
 
 <div class="form-actions">

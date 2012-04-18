@@ -26,11 +26,20 @@ class CommentController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
         $user = $this->get('security.context')->getToken()->getUser();
-        $entities = $em->getRepository('AppydoTestBundle:Comment')->findAll();
+		
+		$query = $em->createQuery("SELECT c, t FROM AppydoTestBundle:Comment c LEFT JOIN c.topic t WHERE t.project=?1");
+        $query->setParameter(1, $user->getCurrentId());
+        $entities = $query->getResult();
+		
+		$topics = $em->getRepository('AppydoTestBundle:Topic')->findBy(
+                    array('project' => $user->getCurrentId()),
+                    array('id'      => 'ASC')
+                );
 
         return array(
             'entities' => $entities,
-            'project'  => AdminController::getProject($em, $user)
+            'project'  => AdminController::getProject($em, $user),
+			'topics'    => $topics
             );
     }
 
