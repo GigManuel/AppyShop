@@ -19,9 +19,9 @@
         {% endif %}
 
     <div class="form-actions" style="text-align:center">
-        <a class="btn btn-primary" href="{{ path('topic_new') }}">Nouvelle page</a>
-        <a class="btn" href="{{ path('project_new') }}">Nouveau project</a>
-        <a class="btn" href="{{ path('project') }}">Liste projets</a>
+        <a class="btn btn-primary" href="{{ path('topic_new') }}"><i class="icon-plus icon-white"></i> page</a>
+        <a class="btn" href="{{ path('project_new') }}"><i class="icon-plus"></i> project</a>
+        <a class="btn" href="{{ path('project') }}">Mes projets</a>
     </div>
 
     <form class="form-horizontal" action="{{ path('_appydo_admin_note', { 'id': project.id }) }}" method="post" {{ form_enctype(note_form) }}>

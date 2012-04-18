@@ -32,7 +32,7 @@
 {% for key, file in listFiles %}
     <div style="clear:both">
 		<div style="float:left;margin-bottom:10px;margin-right:10px;">
-			<img src="http://127.0.0.1/~jimmyy/Symfony2/www/uploads/1/{{ file }}" style="border-radius: 10px;width:80px;height:80px;" />
+			<img src="{{ asset( 'uploads/' ~ project.id ~ '/' ~ file ) }}" style="border-radius: 10px;width:80px;height:80px;" />
 		</div>
                 <div class="well" style="margin-left: 100px">
                     <div>

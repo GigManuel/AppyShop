@@ -78,7 +78,7 @@ class UserController extends Controller
             'entity'  => $entity,
             'form'    => $form->createView(),
             'project' => AdminController::getProject($em, $user),
-            'theme'   => (isset($project)) ? $project->getTheme() : 'default',
+            'theme'   => (isset($project) and $project->getTheme()!='') ? $project->getTheme() : 'default',
         );
     }
 
