@@ -63,7 +63,8 @@ class UserController extends Controller
     /**
      * Displays a form to create a new User entity.
      *
-     * @Route("/signup", name="user_new")
+     * @Route("/signup/", defaults={"name"=""}, name="user_new"),
+     * @Route("/signup/{name}")
      * @Template()
      */
     public function newAction()

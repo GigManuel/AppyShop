@@ -199,11 +199,17 @@ class DefaultController extends Controller
         return $this->get('security.context')->getToken()->getUser();
     }
     /**
-     * @Route("/admin/login", name="_appydo_login")
+     * @Route("/admin/login/{name}", name="_appydo_login")
      * @Template()
      */
-    public function loginAction()
+    public function loginAction($name)
     {
+         
+        $em      = $this->getDoctrine()->getEntityManager();
+        $query = $em->createQuery('SELECT p FROM AppydoTestBundle:Project p WHERE LOWER(p.name)=?1');
+        $query->setParameter(1, $name);
+        $project = $query->getSingleResult();
+        
         $request = $this->getRequest();
         $session = $request->getSession();
         if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
@@ -213,6 +219,7 @@ class DefaultController extends Controller
         }
 
         return array(
+            'project' => $project,
             'last_username' => $session->get(SecurityContext::LAST_USERNAME),
             'error'         => $error,
             'theme'   => (isset($project))?$project->getTheme():'default',
