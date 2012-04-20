@@ -73,12 +73,6 @@ class UserController extends Controller
         
         $entity = new User();
         $form   = $this->createForm(new UserSignup(), $entity);
-<<<<<<< HEAD
-        
-        $query = $em->createQuery('SELECT p FROM AppydoTestBundle:Project p WHERE LOWER(p.name)=?1');
-        $query->setParameter(1, $name);
-        $project = $query->getSingleResult();
-=======
 		if (!empty($name)) {
         	$query = $em->createQuery('SELECT p FROM AppydoTestBundle:Project p WHERE LOWER(p.name)=?1');
         	$query->setParameter(1, $name);
@@ -86,17 +80,11 @@ class UserController extends Controller
 		} else {
 			$project = null;
 		}
->>>>>>> 854df3933620601437d3a532f88850f2ed26ecc1
-
         return array(
             'entity'  => $entity,
             'form'    => $form->createView(),
             'project' => $project,
-<<<<<<< HEAD
-            'theme'   => (isset($project))?$project->getTheme():'default',
-=======
             'theme'   => (isset($project) and $project->getTheme()!='') ? $project->getTheme() : 'default',
->>>>>>> 854df3933620601437d3a532f88850f2ed26ecc1
         );
     }
 
