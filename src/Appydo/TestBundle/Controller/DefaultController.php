@@ -72,11 +72,11 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/{name}", requirements={"name" = "^((?!(admin)).)*(!(/))*$"}, name="_appydo_project")
+     * @Route("/{name}", requirements={"name" = "^((?!(admin)).)([a-z]*[0-9]*[A-Z]*)*"}, name="_appydo_project")
      * @Template()
      */
      public function projectAction($name) {
-        // $this->container->setParameter('theme', 'blue');
+
         if (empty($name)) return $this->index();
         $name = strtolower($name);
         $em   = $this->getDoctrine()->getEntityManager();
@@ -123,7 +123,7 @@ class DefaultController extends Controller
     }
     
     /**
-     * @Route("/{name}/{id}/{topic}", name="_appydo_topic", requirements = {"id" = "\d+"})
+     * @Route("/{name}/{id}/{topic}/", name="_appydo_topic", requirements = {"id" = "\d+"}, name="_appydo_topic")
      * @Template()
      */
      public function topicAction($name, $id, $topic) {

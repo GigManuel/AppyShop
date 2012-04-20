@@ -64,7 +64,7 @@
 
     <p>{{ topic.content|raw }}</p>
     {% if app.user.id is defined and app.user.current==project %}
-    <p><a href="{{ path('topic_edit', {'id':topic.id}) }}">Edit</a></p>
+    	<p><a href="{{ path('topic_edit', {'id':topic.id}) }}">Edit</a></p>
     {% endif %}
 
 {% endblock %}
