@@ -63,22 +63,25 @@ class UserController extends Controller
     /**
      * Displays a form to create a new User entity.
      *
-     * @Route("/signup", name="user_new")
+     * @Route("/signup/{name}", name="user_new")
      * @Template()
      */
-    public function newAction()
+    public function newAction($name)
     {
         $em   = $this->getDoctrine()->getEntityManager();
-        $user = $this->get('security.context')->getToken()->getUser();
         
         $entity = new User();
         $form   = $this->createForm(new UserSignup(), $entity);
+        
+        $query = $em->createQuery('SELECT p FROM AppydoTestBundle:Project p WHERE LOWER(p.name)=?1');
+        $query->setParameter(1, $name);
+        $project = $query->getSingleResult();
 
         return array(
             'entity'  => $entity,
             'form'    => $form->createView(),
-            'project' => AdminController::getProject($em, $user),
-            'theme'   => (isset($project)) ? $project->getTheme() : 'default',
+            'project' => $project,
+            'theme'   => (isset($project))?$project->getTheme():'default',
         );
     }
 

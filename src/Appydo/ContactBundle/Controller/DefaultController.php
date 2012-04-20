@@ -25,7 +25,6 @@ class DefaultController extends Controller
         $form    = $this->createForm(new ContactType(),$contact);
         $em      = $this->getDoctrine()->getEntityManager();
         
-        
         $query = $em->createQuery('SELECT p FROM AppydoTestBundle:Project p WHERE LOWER(p.name)=?1');
         $query->setParameter(1, $name);
         $project = $query->getSingleResult();

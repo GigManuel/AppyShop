@@ -10,6 +10,7 @@
             <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
 
+        <meta name="generator" content="Appydo CMS" />
         <meta name="description" content="{% block description %}{% endblock %}">
         <meta name="keywords" content="{% block keywords %}{% endblock %}">
         <meta name="author" content="{% block author %}{% endblock %}">
@@ -69,12 +70,12 @@
                 <div class="nav-collapse">
                     <ul class="nav">
                     <li class="active"><a href="{{ path('_appydo') }}">Home</a></li>
-                    <li><a href="{{ path('_appydo_contact') }}">Contact</a></li>
+                    <li><a href="{{ path('_appydo_contact',{'name': project.name}) }}">Contact</a></li>
                     {% if app.user %}
                         <li><a href="{{ path('_appydo_admin') }}">Admin</a></li>
                         <li><a href="{{ path('_appydo_logout') }}">Logout</a></li>
                     {% else %}
-                        <li><a href="{{ path('_appydo_login') }}">Login</a></li>
+                        <li><a href="{{ path('_appydo_login',{'name': project.name}) }}">Login</a></li>
                         <li><a href="{{ path('user_new') }}">Signup</a></li>
                     {% endif %}
                     <li>
