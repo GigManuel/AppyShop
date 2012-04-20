@@ -22,7 +22,8 @@
 		$('textarea.tinymce').tinymce({
 			// Location of TinyMCE script
 			script_url : '{{ asset('bundles/appydotest/js/tiny_mce/tiny_mce.js') }}',
-
+                        remove_script_host : false,
+                        convert_urls : false,
 			// General options
 			theme : "advanced",
 			plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,advlist",
@@ -64,7 +65,7 @@
         <p>Erreur : le dossier image n'existe pas.</p>
     {% else %}
         {% for image in listFiles %}
-            <p><a href="{{ url('_appydo') }}/uploads/{{app.user.current.id}}/{{image}}" class="add">{{image}} ${space} ko</a></p>
+            <p><a href="{{ app.request.scheme }}://{{ app.request.host }}{{ asset('uploads/' ~ app.user.current.id ~ '/' ~ image) }}" class="add">{{image}}</a></p>
         {% endfor %}
     {% endif %}
 </div>
@@ -124,13 +125,4 @@
 
 </fieldset>
 </form>
-
-<div class="form-actions">
-    <form action="{{ path('topic_delete', { 'id': entity.id }) }}" method="post">
-
-        {{ form_widget(delete_form) }}
-        <button class="btn btn-danger" type="submit">Delete</button>
-
-    </form>
-</div>
 {% endblock %}

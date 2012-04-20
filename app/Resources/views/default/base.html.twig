@@ -69,14 +69,14 @@
                 {% endblock %}
                 <div class="nav-collapse">
                     <ul class="nav">
-                    <li class="active"><a href="{{ path('_appydo') }}">Home</a></li>
-                    <li><a href="{{ path('_appydo_contact',{'name': project.name}) }}">Contact</a></li>
+                    <li class="active"><a href="{{ path('_appydo') }}" accesskey="1">Home</a></li>
+					{% if project is defined %}<li><a href="{{ path('_appydo_contact',{'name':project.name}) }}" accesskey="2" title=""><span>Contact</span></a></li>{% endif %}
                     {% if app.user %}
-                        <li><a href="{{ path('_appydo_admin') }}">Admin</a></li>
-                        <li><a href="{{ path('_appydo_logout') }}">Logout</a></li>
+                        <li><a href="{{ path('_appydo_admin') }}" accesskey="3">Admin</a></li>
+                        <li><a href="{{ path('_appydo_logout') }}" accesskey="4">Logout</a></li>
                     {% else %}
-                        <li><a href="{{ path('_appydo_login',{'name': project.name}) }}">Login</a></li>
-                        <li><a href="{{ path('user_new') }}">Signup</a></li>
+                        <li><a href="{{ path('_appydo_login',{'name': project.name}) }}" accesskey="3">Login</a></li>
+                        <li><a href="{{ path('user_new') }}"  accesskey="4">Signup</a></li>
                     {% endif %}
                     <li>
                         <form class="navbar-search pull-left">

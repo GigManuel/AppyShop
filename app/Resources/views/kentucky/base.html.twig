@@ -31,7 +31,7 @@
                                     <li><a href="{{ path('_appydo_login',{'name': project.name}) }}" accesskey="3"><span>Login</span></a></li>
                                     <li><a href="{{ path('user_new',{'name': project.name}) }}" accesskey="4"><span>Signup</span></a></li>
                                 {% endif %}
-				<li><a href="{{ path('_appydo_contact',{'name': project.name}) }}" accesskey="5" title=""><span>Contact</span></a></li>
+				{% if project %}<li><a href="{{ path('_appydo_contact',{'name': project.name}) }}" accesskey="5" title=""><span>Contact</span></a></li>{% endif %}
 			</ul>
 		</div>
 	</div>
@@ -42,18 +42,7 @@
 					<div id="box1" class="box-style1">
 						<div class="entry">
 							<div class="image-style2 image-style2a"><a href="#"><img src="{{asset('themes/kentucky/images/pics02.jpg')}}" width="150" height="180" alt="" /></a></div>
-							<div class="image-style2 image-style2a"><a href="#"><img src="{{asset('themes/kentucky/images/pics02.jpg')}}" width="150" height="180" alt="" /></a></div>
-							<div class="image-style2 image-style2a"><a href="#"><img src="{{asset('themes/kentucky/images/pics02.jpg')}}" width="150" height="180" alt="" /></a></div>
-							<div class="image-style2 image-style2a"><a href="#"><img src="{{asset('themes/kentucky/images/pics02.jpg')}}" width="150" height="180" alt="" /></a></div>
-							<div class="image-style2 image-style2a"><a href="#"><img src="{{asset('themes/kentucky/images/pics02.jpg')}}" width="150" height="180" alt="" /></a></div>
-							<div class="image-style2 image-style2a"><a href="#"><img src="{{asset('themes/kentucky/images/pics02.jpg')}}" width="150" height="180" alt="" /></a></div>
-							<div class="image-style2 image-style2a"><a href="#"><img src="{{asset('themes/kentucky/images/pics02.jpg')}}" width="150" height="180" alt="" /></a></div>
-							<div class="image-style2 image-style2a"><a href="#"><img src="{{asset('themes/kentucky/images/pics02.jpg')}}" width="150" height="180" alt="" /></a></div>
-							<div class="image-style2 image-style2a"><a href="#"><img src="{{asset('themes/kentucky/images/pics02.jpg')}}" width="150" height="180" alt="" /></a></div>
-							<div class="image-style2 image-style2a"><a href="#"><img src="{{asset('themes/kentucky/images/pics02.jpg')}}" width="150" height="180" alt="" /></a></div>
-							<div class="image-style2 image-style2a"><a href="#"><img src="{{asset('themes/kentucky/images/pics02.jpg')}}" width="150" height="180" alt="" /></a></div>
-							{% block content %}
-                                                        {% endblock %}
+							{% block content %}{% endblock %}
 						</div>
 					</div>
 				</div>

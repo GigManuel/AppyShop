@@ -132,7 +132,7 @@ class AdminController extends Controller
             'url' => 'http://demo.piwik.org/index.php'
             );
     }
-    
+
     /**
      * @Route("/server", name="_appydo_admin_server")
      * @Template("AppydoTestBundle:Admin:iframe.html.twig")
