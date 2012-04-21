@@ -5,6 +5,7 @@ namespace Appydo\ShopBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Appydo\QuizBundle\SimpleImage as SimpleImage;
 
 /**
  * Appydo\ShopBundle\Entity\Product
@@ -109,6 +110,7 @@ class Product
     
     public function upload($id)
     {
+	
         if (null === $this->file) {
             return;
         }

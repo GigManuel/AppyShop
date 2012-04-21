@@ -81,17 +81,18 @@ class ProductController extends Controller
     public function createAction()
     {
         $entity  = new Product();
+		$user = $this->get('security.context')->getToken()->getUser();
         $request = $this->getRequest();
         $form    = $this->createForm(new ProductType(), $entity);
         $form->bindRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getEntityManager();
+			$entity->upload($user->getCurrentId());
             $em->persist($entity);
             $em->flush();
 
             return $this->redirect($this->generateUrl('_appydo_admin_shop_product_edit', array('id' => $entity->getId())));
-            
         }
 
         return array(
@@ -136,7 +137,7 @@ class ProductController extends Controller
     public function updateAction($id)
     {
         $em = $this->getDoctrine()->getEntityManager();
-
+		$user = $this->get('security.context')->getToken()->getUser();
         $entity = $em->getRepository('AppydoShopBundle:Product')->find($id);
 
         if (!$entity) {
@@ -151,10 +152,11 @@ class ProductController extends Controller
         $editForm->bindRequest($request);
 
         if ($editForm->isValid()) {
+			$entity->upload($user->getCurrentId());
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('product_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('_appydo_admin_shop_product_edit', array('id' => $id)));
         }
 
         return array(
