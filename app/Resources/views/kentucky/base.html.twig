@@ -22,11 +22,20 @@
 		</div>
 		<div id="menu">
 			<ul>
-				<li><a href="#" accesskey="1" title=""><span>Sommaire</span></a></li>
-				<li><a href="#" accesskey="2" title=""><span>Archives</span></a></li>
-				<li><a href="#" accesskey="3" title=""><span>Downloads</span></a></li>
-				<li><a href="#" accesskey="4" title=""><span>A propos</span></a></li>
+				<li><a href="{{ path('_appydo') }}" accesskey="1" title=""><span>Sommaire</span></a></li>
+				<li><a href="{{ path('_appydo_topic', {'name': project.name,'id':10, 'topic':'A propos'}) }}" accesskey="4" title=""><span>A propos</span></a></li>
 				{% if project %}<li><a href="{{ path('_appydo_contact',{'name':project.name}) }}" accesskey="5" title=""><span>Contact</span></a></li>{% endif %}
+				{% if app.user %}
+                    <li><a href="{{ path('_appydo_admin') }}" accesskey="3"><span>Admin</span></a></li>
+                    <li><a href="{{ path('_appydo_logout') }}" accesskey="4"><span>Logout</span></a></li>
+                {% else %}
+					{% if project %}
+                    	<li><a href="{{ path('_appydo_login', {'name':project.name}) }}" accesskey="3"><span>Login</span></a></li>
+                    	<li><a href="{{ path('user_new_',{'name': project.name }) }}"><span>Signup</span></a></li>
+					{% else %}
+						<li><a href="{{ path('user_new') }}"><span>Signup</span></a></li>
+					{% endif %}
+                {% endif %}
 			</ul>
 		</div>
 	</div>
@@ -36,7 +45,7 @@
 				<div id="content-bgbtm">
 					<div id="box1" class="box-style1">
 						<div class="entry">
-							<div class="image-style2 image-style2a"><a href="#"><img src="{{asset('themes/kentucky/images/pics02.jpg')}}" width="150" height="180" alt="" /></a></div>
+							{#<div class="image-style2 image-style2a"><a href="#"><img src="{{asset('themes/kentucky/images/pics02.jpg')}}" width="150" height="180" alt="" /></a></div>#}
 							{% block content %}{% endblock %}
 						</div>
 					</div>
@@ -48,7 +57,7 @@
 				<h2 class="title">Produits</h2>
 				<div class="entry">
 					<ul class="style2">
-                                                {% render "AppydoShopBundle:Category:list" with {'name':project.name} %}
+                    	{% render "AppydoShopBundle:Category:list" with {'name':project.name} %}
 					</ul>
 				</div>
 			</div>
@@ -72,7 +81,7 @@
 	</div>
 </div>
 <div id="footer" class="container">
-	<p class="menu-links"><a href="{{path("_appydo")}}">Sommaire</a> | <a href="#">Archives</a> | <a href="#">Downloads</a> | <a href="#">A propos</a> | <a href="#">Terms of Use</a> | <a href="#">Privacy Policy</a> | <a href="#">Information</a> | <a href="#">Contact</a></p>
+	<p class="menu-links"><a href="{{path("_appydo")}}">Sommaire</a> | <a href="#">Archives</a> | <a href="#">Downloads</a> | <a href="{{path("_appydo")}}">A propos</a> | <a href="#">Terms of Use</a> | <a href="#">Privacy Policy</a> | <a href="#">Information</a> | <a href="#">Contact</a></p>
 	<p class="copyright">© 2012 kentucky sportswear. Tous droits réservés.</p>
 </div>
 </body>
