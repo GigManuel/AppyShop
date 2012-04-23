@@ -200,8 +200,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/login/{name}", name="_appydo_login")
-	 * @Route("/login", defaults={"name"=""}, name="_appydo_login_")
+     * @Route("/login/{name}", defaults={"name"=""}, name="_appydo_login"),
      * @Template()
      */
     public function loginAction($name)

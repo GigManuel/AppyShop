@@ -15,7 +15,7 @@ use Appydo\TestBundle\Form\UserEdit;
 /**
  * User controller.
  *
- * @Route("/")
+ * @Route("")
  */
 class UserController extends Controller
 {
@@ -63,8 +63,7 @@ class UserController extends Controller
     /**
      * Displays a form to create a new User entity.
      *
-     * @Route("/user/signup/", defaults={"name"=""}, name="user_new"),
-     * @Route("/user/signup/{name}", name="user_new_")
+     * @Route("/user/signup/{name}", defaults={"name"=""}, name="user_new"),
      * @Template()
      */
     public function newAction($name)
@@ -130,7 +129,7 @@ class UserController extends Controller
             $token = new \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken(
                 $entity,
                 null,
-                'main',
+                'secured_area',
                 $entity->getRoles()
             );
             // give it to the security context
