@@ -1,6 +1,13 @@
-<h1>Service list</h1>
+{% extends 'AppydoTestBundle::admin.html.twig' %}
 
-<table class="records_list">
+{% block title "Service list" %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Service list</h1>
+</div>
+
+<table class="table table-striped">
     <thead>
         <tr>
             <th>Id</th>
@@ -26,10 +33,13 @@
     </tbody>
 </table>
 
-<ul>
-    <li>
-        <a href="{{ path('service_new') }}">
-            Create a new entry
-        </a>
-    </li>
-</ul>
+<div class="form-actions">
+    <a class="btn btn-primary" href="{{ path('service_new') }}">
+        <i class="icon-plus icon-white"></i>
+        Service
+    </a>
+    <a class="btn" href="{{ path('_appydo_admin') }}">
+        Back
+    </a>
+</div>
+{% endblock %}
