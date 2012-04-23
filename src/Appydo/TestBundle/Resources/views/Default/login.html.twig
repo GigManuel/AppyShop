@@ -6,7 +6,7 @@
         <a href="{{ path('_appydo') }}">Home</a> <span class="divider">/</span>
     </li>
     <li class="active">
-        <a href="{{ path('_appydo_login', {'name':project.name}) }}">Login</a>
+        <a href="{{ path('_appydo_login', {'name':(project.name is defined)?project.name:''}) }}">Login</a>
     </li>
 </ul>
 {% endblock %}

@@ -72,7 +72,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/{name}", requirements={"name" = "^((?!(admin)).)([a-z]*[0-9]*[A-Z]*)*"}, name="_appydo_project")
+     * @Route("/{name}", requirements={"name" = "^((?!(admin|login)).)([a-z]*[0-9]*[A-Z]*)*"}, name="_appydo_project")
      * @Template()
      */
      public function projectAction($name) {
@@ -200,16 +200,20 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/admin/login/{name}", name="_appydo_login")
+     * @Route("/login/{name}", name="_appydo_login")
+	 * @Route("/login", defaults={"name"=""}, name="_appydo_login_")
      * @Template()
      */
     public function loginAction($name)
     {
-         
         $em      = $this->getDoctrine()->getEntityManager();
-        $query = $em->createQuery('SELECT p FROM AppydoTestBundle:Project p WHERE LOWER(p.name)=?1');
-        $query->setParameter(1, $name);
-        $project = $query->getSingleResult();
+		if (!empty($name)) {
+	        $query = $em->createQuery('SELECT p FROM AppydoTestBundle:Project p WHERE LOWER(p.name)=?1');
+	        $query->setParameter(1, $name);
+	        $project = $query->getSingleResult();
+		} else {
+			$project = null;
+		}
         
         $request = $this->getRequest();
         $session = $request->getSession();

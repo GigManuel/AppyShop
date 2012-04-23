@@ -24,7 +24,7 @@ security:
             security: false
 
         login:
-            pattern:  ^/admin/login$
+            pattern:  ^/login$
             security: false
 
         secured_area:
@@ -33,7 +33,7 @@ security:
                 always_use_default_target_path: true
                 default_target_path: /admin/
                 check_path: /admin/login_check
-                login_path: /admin/login
+                login_path: /login
             logout:
                 path:   /admin/logout
                 target: /
@@ -44,7 +44,7 @@ security:
     access_control:
         #- { path: ^/appydo.*, role: ROLE_USER }
         #- { path: ^/admin/user/signup, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        #- { path: ^/admin.*, role: ROLE_USER }
+        - { path: ^/admin.*, role: ROLE_USER }
         #- { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
         #- { path: ^/_internal, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
