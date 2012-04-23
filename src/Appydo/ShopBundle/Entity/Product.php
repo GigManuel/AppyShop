@@ -5,6 +5,7 @@ namespace Appydo\ShopBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Appydo\QuizBundle\SimpleImage as SimpleImage;
 
 /**
  * Appydo\ShopBundle\Entity\Product
@@ -88,9 +89,9 @@ class Product
         return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->path;
     }
     
-    public function getWebPath()
+    public function getWebPath($id)
     {
-        return null === $this->path ? null : $this->getUploadDir().$this->id.'/'.$this->path;
+        return null === $this->path ? null : $this->getUploadDir().$id.'/'.$this->path;
     }
 
     protected function getUploadDir()
@@ -120,7 +121,7 @@ class Product
             $image->save($this->file);
         }
         
-        $this->file->move($this->getUploadRootDir($this->id), $this->file->getClientOriginalName());
+        $this->file->move($this->getUploadRootDir($id), $this->file->getClientOriginalName());
 
         $this->path = $this->file->getClientOriginalName();
         $this->file = null;

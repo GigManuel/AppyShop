@@ -22,11 +22,6 @@ AppydoFilesBundle:
     type:     annotation
     prefix:   /files/
 
-AppydoQuizBundle:
-    resource: "@AppydoQuizBundle/Controller/"
-    type:     annotation
-    prefix:   /quizz/
-
 ContactBundle:
     resource: "@ContactBundle/Controller/"
     type:     annotation

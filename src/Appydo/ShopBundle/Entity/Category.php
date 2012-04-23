@@ -160,6 +160,26 @@ class Category
     }
 
     /**
+     * Set project
+     *
+     * @param string $project
+     */
+    public function setProject($project)
+    {
+        $this->project = $project;
+    }
+
+    /**
+     * Get project
+     *
+     * @return string 
+     */
+    public function getProject()
+    {
+        return $this->project;
+    }
+
+    /**
      * Set name
      *
      * @param string $name

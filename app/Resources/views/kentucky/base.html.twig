@@ -22,6 +22,7 @@
 		</div>
 		<div id="menu">
 			<ul>
+
 				<li><a href="{{ path('_appydo') }}" accesskey="1" title=""><span>Sommaire</span></a></li>
 				<li><a href="{{ path('_appydo_topic', {'name': project.name,'id':10, 'topic':'A propos'}) }}" accesskey="4" title=""><span>A propos</span></a></li>
 				{% if project %}<li><a href="{{ path('_appydo_contact',{'name':project.name}) }}" accesskey="5" title=""><span>Contact</span></a></li>{% endif %}
@@ -29,13 +30,14 @@
                     <li><a href="{{ path('_appydo_admin') }}" accesskey="3"><span>Admin</span></a></li>
                     <li><a href="{{ path('_appydo_logout') }}" accesskey="4"><span>Logout</span></a></li>
                 {% else %}
-					{% if project %}
+					{% if project.name is defined %}
                     	<li><a href="{{ path('_appydo_login', {'name':project.name}) }}" accesskey="3"><span>Login</span></a></li>
                     	<li><a href="{{ path('user_new_',{'name': project.name }) }}"><span>Signup</span></a></li>
 					{% else %}
 						<li><a href="{{ path('user_new') }}"><span>Signup</span></a></li>
 					{% endif %}
                 {% endif %}
+
 			</ul>
 		</div>
 	</div>
@@ -81,7 +83,11 @@
 	</div>
 </div>
 <div id="footer" class="container">
+<<<<<<< HEAD
 	<p class="menu-links"><a href="{{path("_appydo")}}">Sommaire</a> | <a href="#">Archives</a> | <a href="#">Downloads</a> | <a href="{{path("_appydo")}}">A propos</a> | <a href="#">Terms of Use</a> | <a href="#">Privacy Policy</a> | <a href="#">Information</a> | <a href="#">Contact</a></p>
+=======
+	<p class="menu-links"><a href="{{path("_appydo")}}">Sommaire</a> | <a href="#">Archives</a> | <a href="#">Downloads</a> | <a href="#">A propos</a> | <a href="#">Terms of Use</a> | <a href="#">Privacy Policy</a> | <a href="#">Information</a> | <a href="{{ path('_appydo_contact', {'name': 'aaa'}) }}">Contact</a></p>
+>>>>>>> a245cd8ac10fb79b399e1c77edff85ca4287443e
 	<p class="copyright">© 2012 kentucky sportswear. Tous droits réservés.</p>
 </div>
 </body>

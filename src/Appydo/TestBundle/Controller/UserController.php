@@ -70,7 +70,6 @@ class UserController extends Controller
     public function newAction($name)
     {
         $em   = $this->getDoctrine()->getEntityManager();
-        $user = $this->get('security.context')->getToken()->getUser();
         
         $entity = new User();
         $form   = $this->createForm(new UserSignup(), $entity);
@@ -81,7 +80,6 @@ class UserController extends Controller
 		} else {
 			$project = null;
 		}
-
         return array(
             'entity'  => $entity,
             'form'    => $form->createView(),

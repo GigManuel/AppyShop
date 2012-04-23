@@ -10,6 +10,7 @@
             <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
 
+        <meta name="generator" content="Appydo CMS" />
         <meta name="description" content="{% block description %}{% endblock %}">
         <meta name="keywords" content="{% block keywords %}{% endblock %}">
         <meta name="author" content="{% block author %}{% endblock %}">
@@ -69,17 +70,19 @@
                 <div class="nav-collapse">
                     <ul class="nav">
                     <li class="active"><a href="{{ path('_appydo') }}" accesskey="1">Home</a></li>
-                    {% if project %}<li><a href="{{ path('_appydo_contact',{'name':project.name}) }}" accesskey="2" title=""><span>Contact</span></a></li>{% endif %}
+					{% if project.name is defined %}<li><a href="{{ path('_appydo_contact',{'name':project.name}) }}" accesskey="2" title=""><span>Contact</span></a></li>{% endif %}
                     {% if app.user %}
                         <li><a href="{{ path('_appydo_admin') }}" accesskey="3">Admin</a></li>
                         <li><a href="{{ path('_appydo_logout') }}" accesskey="4">Logout</a></li>
                     {% else %}
-						{% if project %}
-                        	<li><a href="{{ path('_appydo_login', {'name':project.name}) }}" accesskey="3">Login</a></li>
-                        	<li><a href="{{ path('user_new_',{'name': project.name }) }}">Signup</a></li>
-						{% else %}
-							<li><a href="{{ path('user_new') }}">Signup</a></li>
-						{% endif %}
+
+					{% if project.name is defined %}
+                       	<li><a href="{{ path('_appydo_login', {'name':project.name}) }}" accesskey="3">Login</a></li>
+                       	<li><a href="{{ path('user_new_',{'name': project.name }) }}">Signup</a></li>
+					{% else %}
+						<li><a href="{{ path('user_new') }}">Signup</a></li>
+					{% endif %}
+
                     {% endif %}
                     <li>
                         <form class="navbar-search pull-left">

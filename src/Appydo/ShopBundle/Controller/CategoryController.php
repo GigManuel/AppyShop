@@ -24,9 +24,13 @@ class CategoryController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em   = $this->getDoctrine()->getEntityManager();
+		$user = $this->get('security.context')->getToken()->getUser();
 
-        $entities = $em->getRepository('AppydoShopBundle:Category')->findAll();
+		$entities = $em->getRepository('AppydoShopBundle:Category')->findBy(
+                    array('project' => $user->getCurrentId()),
+                    array('id'      => 'ASC')
+                );
 
         return array('entities' => $entities);
     }
@@ -96,11 +100,13 @@ class CategoryController extends Controller
     {
         $entity  = new Category();
         $request = $this->getRequest();
+		$user    = $this->get('security.context')->getToken()->getUser();
         $form    = $this->createForm(new CategoryType(), $entity);
         $form->bindRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getEntityManager();
+			$entity->setProject($user->getCurrent());
             $em->persist($entity);
             $em->flush();
 

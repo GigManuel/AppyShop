@@ -105,6 +105,20 @@ class Project
      */
     private $comment;
 
+	/**
+     * @var boolean $comment
+     *
+     * @ORM\Column(name="stat", type="boolean", nullable=true)
+     */
+    public $stat;
+
+	/**
+     * @var boolean $log
+     *
+     * @ORM\Column(name="log", type="boolean", nullable=true)
+     */
+    public $log;
+
     /**
      * @var boolean $contact
      *

@@ -198,6 +198,7 @@ class DefaultController extends Controller
     {
         return $this->get('security.context')->getToken()->getUser();
     }
+
     /**
      * @Route("/admin/login/{name}", name="_appydo_login")
      * @Template()
@@ -221,8 +222,8 @@ class DefaultController extends Controller
         return array(
             'project' => $project,
             'last_username' => $session->get(SecurityContext::LAST_USERNAME),
-            'error'         => $error,
-            'theme'   => (isset($project))?$project->getTheme():'default',
+            'error' => $error,
+            'theme' => (isset($project) and $project->getTheme()!='') ? $project->getTheme() : 'default',
         );
     }
 
