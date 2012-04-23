@@ -23,6 +23,8 @@ class ProjectType extends AbstractType
             ->add('contact')
             ->add('hide')
             ->add('config')
+			->add('stat')
+			->add('log')
             // ->add('created')
             // ->add('updated')
             // ->add('author')

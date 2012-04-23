@@ -95,6 +95,20 @@
                 {{ form_errors(edit_form.config) }}
             </label>
         </div>
+		<div class="controls">
+            <label class="checkbox" for="appydo_testbundle_topictype_stat">
+                {{ form_widget(edit_form.stat) }}
+                Stat
+                {{ form_errors(edit_form.stat) }}
+            </label>
+        </div>
+		<div class="controls">
+            <label class="checkbox" for="appydo_testbundle_topictype_log">
+                {{ form_widget(edit_form.log) }}
+                Log
+                {{ form_errors(edit_form.log) }}
+            </label>
+        </div>
     </div>
 {#
     <div class="control-group">
