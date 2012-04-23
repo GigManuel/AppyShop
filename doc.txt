@@ -1,0 +1,74 @@
+$user = $this->get('security.context')->getToken()->getUser();
+
+# Soucis avec les droits ?
+sudo chmod -R 777 app/cache/;sudo chmod -R 777 db/;sudo rm -r app/logs/*;sudo rm -r app/cache/*
+# Créer la base de données
+rm db/symfony.db;php app/console doctrine:schema:create -v;chmod 777 db/symfony.db
+sudo chmod -R 777 app/cache/;sudo chmod -R 777 db/;sudo rm -r app/logs/*;sudo rm -r app/cache/*
+
+# Installer les assets
+app/console assetic:dump
+app/console assets:install --symlink www
+
+# Générer un bundle
+app/console generate:bundle
+
+# Astuce pour récuperer le liens racine
+$this->container->getParameter('kernel.root_dir')
+$this->get('kernel')->getRootDir();
+
+# Modifier la conf dynamiquement
+$this->container->setParameter('theme', 'default');
+
+$this->get('request')->getBasePath();
+/var/www/Symfony/web
+
+# Générer un bundle sans retour clavier (script)
+app/console generate:bundle --namespace=Appydo/CaptchaBundle --dir=src --no-interaction
+
+# Générer un crud via une entité
+app/console generate:doctrine:crud --entity="AppydoTestBundle:Service" --with-write
+
+app/console generate:doctrine:crud --entity="AppydoShopBundle:Product" --with-write
+
+# Connecter un utilisateur
+// create the authentication token
+$token = new UsernamePasswordToken(
+    $user,
+    null,
+    'main',
+    $user->getRoles());
+// give it to the security context
+$this->container->get('security.context')->setToken($token);
+
+
+### Installation ###
+
+apt-get install php5-cli
+# Pour les utilisateurs de sqlite
+apt-get install php5-sqlite
+apt-get install mysql-server mysql-client php5-mysql
+
+Configuration Apache
+
+<VirtualHost numericle.com:80>
+        ServerAdmin contact@numericle.com
+        DocumentRoot /home/numericle/www
+        # SuexecUserGroup numericle users
+        ServerName numericle.com
+        # Redirect / https://appydo.com
+        CustomLog /var/log/apache2/numericle-access_log combined
+        # ScriptAlias /cgi-bin/ /home/whatsup/cgi-bin/
+        # AddHandler x-httpd-php5 .php
+</VirtualHost>
+
+# Soucis avec les droits ?
+sudo chmod -R 777 app/cache/;sudo chmod -R 777 db/;sudo rm -r app/logs/*;sudo rm -r app/cache/*
+
+app/console cache:clear
+
+# Installer les assets
+app/console assets:install --symlink www
+
+# Générer la database
+app/console doctrine:schema:create -v

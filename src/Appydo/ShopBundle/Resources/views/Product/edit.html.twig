@@ -9,7 +9,7 @@
 <legend>Product edit</legend>
     {{ form_widget(edit_form) }}
 		
-	<div><img src="{{asset(entity.getWebPath())}}" /></div>
+	<div><img src="{{asset(entity.getWebPath(app.user.current.id))}}" /></div>
 
     <div class="form-actions">
         <button class="btn btn-primary" type="submit">

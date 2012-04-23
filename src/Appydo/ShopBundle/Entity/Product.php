@@ -89,9 +89,9 @@ class Product
         return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->path;
     }
     
-    public function getWebPath()
+    public function getWebPath($id)
     {
-        return null === $this->path ? null : $this->getUploadDir().$this->id.'/'.$this->path;
+        return null === $this->path ? null : $this->getUploadDir().$id.'/'.$this->path;
     }
 
     protected function getUploadDir()
@@ -110,7 +110,6 @@ class Product
     
     public function upload($id)
     {
-	
         if (null === $this->file) {
             return;
         }
@@ -122,7 +121,7 @@ class Product
             $image->save($this->file);
         }
         
-        $this->file->move($this->getUploadRootDir($this->id), $this->file->getClientOriginalName());
+        $this->file->move($this->getUploadRootDir($id), $this->file->getClientOriginalName());
 
         $this->path = $this->file->getClientOriginalName();
         $this->file = null;
