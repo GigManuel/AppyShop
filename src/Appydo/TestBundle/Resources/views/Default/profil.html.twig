@@ -3,9 +3,9 @@
 {% block title "Appydo" %}
 
 {% block project %}
-{% if project.name is defined %}
-    <a class="brand" href="{{ path('_appydo_project',{'name':project.name}) }}">{{ project.name }}</a>
-{% endif %}
+	{% if project.name is defined %}
+	    <a class="brand" href="{{ path('_appydo_project',{'name':project.name}) }}">{{ project.name }}</a>
+	{% endif %}
 {% endblock %}
 
 {% block content %}
