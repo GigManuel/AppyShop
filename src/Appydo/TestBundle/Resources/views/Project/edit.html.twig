@@ -7,6 +7,7 @@
 <form class="form-horizontal" action="{{ path('project_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
 <fieldset>
 <legend>Project</legend>
+
     {{ form_errors(edit_form) }}
 
     <div class="control-group">

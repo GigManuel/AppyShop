@@ -6,6 +6,7 @@
 <form class="form-horizontal" action="{{ path('menu_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
 <fieldset>
 <legend>Menu edit</legend>
+
     {{ form_errors(edit_form) }}
 
     <div class="control-group">
