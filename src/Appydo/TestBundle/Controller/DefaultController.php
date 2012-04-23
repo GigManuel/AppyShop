@@ -55,20 +55,35 @@ class DefaultController extends Controller
                     array('id'      => 'ASC')
                 );
         }
-        
-        
-        /*
-        $stat = new Stat();
-        $stat->setHits($global->getHits()+1);
-        $em->persist($global);
-        $em->flush();
-        */
-        return array(
-            'project' => $project,
-            'topics'  => $topics,
-            'theme'   => (isset($project) and $project->getTheme()!='')?$project->getTheme():'default',
-            'menus'   => $menus,
-            );
+
+	    /*
+	    $stat = new Stat();
+	    $stat->setHits($global->getHits()+1);
+	    $em->persist($global);
+	    $em->flush();
+	    */
+	    return array(
+	        'project' => $project,
+	        'topics'  => $topics,
+	        'theme'   => (isset($project) and $project->getTheme()!='')?$project->getTheme():'default',
+	        'menus'   => $menus,
+	        );
+	}
+	
+	/**
+     * @Route("/user/profil/{id}/{name}", requirements = {"id" = "\d+"}, name="_appydo_profil")
+     * @Template()
+     */
+    public function profilAction($id, $name)
+    {
+		$em     = $this->getDoctrine()->getEntityManager();
+		$user   = $this->getUser();
+		$profil = $em->getRepository('AppydoTestBundle:User')->findOneBy(array('id'=>$id));
+
+		return array(
+		   'profil' => $profil,
+		   'theme'   => (isset($project) and $project->getTheme()!='')?$project->getTheme():'default',
+		   );
     }
 
     /**
