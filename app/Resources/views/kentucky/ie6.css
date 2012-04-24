@@ -1,0 +1,28 @@
+.link-style1 {
+	float: left;
+}
+
+.link-style2 {
+	float: left;
+}
+
+
+.link-style3 {
+	float: left;
+}
+
+#content-bgbtm {
+	padding-bottom: 20px;
+}
+
+.image-style1a span {
+	background: url(images/bg02.gif) no-repeat left top;
+}
+
+.image-style2a span {
+	background: url(images/bg03.gif) no-repeat left top;
+}
+
+.image-style3a span {
+	background: url(images/bg04.gif) no-repeat left top;
+}

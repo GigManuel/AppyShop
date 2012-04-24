@@ -1,0 +1,20 @@
+#!/usr/bin/env php
+<?php
+    function install() {
+        echo exec('app/console cache:clear');
+        echo exec('app/console assets:install --symlink www');
+        echo exec('app/console assets:install --symlink www');
+    }
+
+    set_time_limit(0);
+    $arg = $_SERVER['argv']['1'];
+    switch ($arg) {
+        case 'cc':
+            echo exec('app/console cache:clear');break;
+        case 'help':
+            echo 'cc - bundle';
+        case 'install':
+            install();
+    }
+echo "\n";
+?>

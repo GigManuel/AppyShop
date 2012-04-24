@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{% block title %}Kentucky Sportswear{% endblock %}</title>
+        <meta name="keywords" content="{% block keywords %}{% endblock %}" />
+        <meta name="description" content="{% block description %}{% endblock %}" />
+        <link href="{{asset('themes/kentucky/default.css')}}" rel="stylesheet" type="text/css" media="all" />
+        <style type="text/css">
+        @import "layout.css";
+        </style>
+        <!--[if lte IE 7]>
+        <link href="ie6.css" rel="stylesheet" type="text/css" />
+        <![endif]-->
+    </head>
+<body>
+<div id="wrapper">
+	<div id="header" class="container">
+		<div id="logo">
+			<h1><a href="#">Kentucky<span>Sportswear</span></a></h1>
+			<p></p>
+		</div>
+		<div id="menu">
+			<ul>
+
+				<li><a href="{{ path('_appydo') }}" accesskey="1" title=""><span>Sommaire</span></a></li>
+				<li><a href="{{ path('_appydo_topic', {'name': project.name,'id':10, 'topic':'A propos'}) }}" accesskey="4" title=""><span>A propos</span></a></li>
+				{% if project %}<li><a href="{{ path('_appydo_contact',{'name':project.name}) }}" accesskey="5" title=""><span>Contact</span></a></li>{% endif %}
+				{% if app.user %}
+                    <li><a href="{{ path('_appydo_admin') }}" accesskey="3"><span>Admin</span></a></li>
+                    <li><a href="{{ path('_appydo_logout') }}" accesskey="4"><span>Logout</span></a></li>
+                {% else %}
+					{% if project.name is defined %}
+                    	<li><a href="{{ path('_appydo_login', {'name':project.name}) }}" accesskey="3"><span>Login</span></a></li>
+					{% endif %}
+                   	<li><a href="{{ path('user_new',{'name': (project.name is defined) ? project.name : '' }) }}"><span>Signup</span></a></li>
+					
+                {% endif %}
+
+			</ul>
+		</div>
+	</div>
+	<div id="page" class="container">
+		<div id="content">
+			<div id="content-bgtop">
+				<div id="content-bgbtm">
+					<div id="box1" class="box-style1">
+						<div class="entry">
+							{#<div class="image-style2 image-style2a"><a href="#"><img src="{{asset('themes/kentucky/images/pics02.jpg')}}" width="150" height="180" alt="" /></a></div>#}
+							{% block content %}{% endblock %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="sidebar">
+			<div id="box4" class="box-style2">
+				<h2 class="title">Produits</h2>
+				<div class="entry">
+					<ul class="style2">
+                    	{% render "AppydoShopBundle:Category:list" with {'name':project.name} %}
+					</ul>
+				</div>
+			</div>
+			<div id="box5" class="box-style2">
+				<h2 class="title">Informations</h2>
+				<div class="entry">
+					<p>KENTUCKY SPORTWEAR est heureux de vous accueillir en dehors des vestiaires mais cette fois sur la grande toile. Après 10 ans passés à vos cotés (au milieu du monde hippique). J'espère vous satisfaire un peu plus en vous facilitant vos achats en ligne, toujours dans le meme esprit et en vous souhaitant a toutes et tous de continuer à "vous habillez gagnant...!"</p>
+				</div>
+
+			</div>
+			<div id="box6" class="box-style2">
+				<h2 class="title">rubriques</h2>
+				<div class="entry">
+					<ul class="style2">
+						<li class="first"><a href="#">Nouveautés</a></li>
+						<li><a href="#">Conseils</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="footer" class="container">
+
+	<p class="menu-links"><a href="{{path("_appydo")}}">Sommaire</a> | <a href="#">Archives</a> | <a href="#">Downloads</a> | <a href="#">A propos</a> | <a href="#">Terms of Use</a> | <a href="#">Privacy Policy</a> | <a href="#">Information</a> | <a href="{{ path('_appydo_contact', {'name': 'aaa'}) }}">Contact</a></p>
+
+	<p class="copyright">© {{ "now"|date("Y") }} kentucky sportswear. Tous droits réservés.</p>
+</div>
+</body>
+</html>
