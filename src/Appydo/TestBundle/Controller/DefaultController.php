@@ -87,7 +87,11 @@ class DefaultController extends Controller
     }
 
     /**
+<<<<<<< HEAD
      * @Route("/{name}", requirements={"name" = "^((?!(admin|login|contact)).)([\w]|[\s])*"}, name="_appydo_project")
+=======
+     * @Route("/{name}", requirements={"name" = "^((?!(admin|login)).)[\w ]*"}, name="_appydo_project")
+>>>>>>> 43550f74697a91e8459b87daea89faf9a1973309
      * @Template()
      */
      public function projectAction($name) {
