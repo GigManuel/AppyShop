@@ -1,0 +1,73 @@
+{% extends 'AppydoTestBundle::admin.html.twig' %}
+
+{% block title "Menu new" %}
+
+{% block content %}
+<form class="form-horizontal" action="{{ path('menu_create') }}" method="post" {{ form_enctype(form) }}>
+<fieldset>
+<legend>Menu new</legend>
+    {{ form_errors(form) }}
+
+    <div class="control-group">
+        {{ form_label(form.name, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(form.name) }}</div>
+        {{ form_errors(form.name) }}
+    </div>
+{#
+    <div class="control-group">
+        {{ form_label(form.url, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(form.url) }}</div>
+        {{ form_errors(form.url) }}
+    </div>
+
+
+    <div class="control-group">
+        {{ form_label(form.description, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(form.description) }}</div>
+        {{ form_errors(form.description) }}
+    </div>
+#}
+    <div class="control-group">
+        {{ form_label(form.menu, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(form.menu) }}</div>
+        {{ form_errors(form.menu) }}
+    </div>
+
+
+{#
+    <div class="control-group">
+        {{ form_label(form.created, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(form.created) }}</div>
+        {{ form_errors(form.created) }}
+    </div>
+
+    <div class="control-group">
+        {{ form_label(form.updated, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(form.updated) }}</div>
+        {{ form_errors(form.updated) }}
+    </div>
+
+    <div class="control-group">
+        {{ form_label(form.author, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(form.author) }}</div>
+        {{ form_errors(form.author) }}
+    </div>
+#}
+
+    <div class="control-group">
+        {{ form_label(form.hide, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(form.hide) }}</div>
+        {{ form_errors(form.hide) }}
+    </div>
+
+    {{ form_widget(form._token) }}
+
+    <div class="form-actions">
+        <button class="btn btn-primary" type="submit">Save</button>
+        <a class="btn" href="{{ path('menu') }}">
+            List
+        </a>
+    </div>
+</fieldset>
+</form>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'AppydoTestBundle::admin.html.twig' %}
+
+{% block title "Product new" %}
+
+{% block content %}
+
+<form action="{{ path('category_create') }}" method="post" {{ form_enctype(form) }}>
+<fieldset>
+<legend>Category creation</legend>
+    {{ form_widget(form) }}
+    <div class="form-actions">
+        <button class="btn btn-primary" type="submit">
+            Save
+        </button>
+        <a class="btn" href="{{ path('_appydo_admin_shop_category') }}">
+            List
+        </a>
+    </div>
+</fieldset>
+</form>
+
+
+
+{% endblock %}

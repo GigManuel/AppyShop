@@ -1,0 +1,41 @@
+{% extends '::'~theme~'/base.html.twig' %}
+
+{% block title "Signup" %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+    <li>
+        <a href="{{ path('_appydo') }}">Home</a> <span class="divider">/</span>
+    </li>
+    <li class="active">
+        <a href="{{ path('user_new') }}">Signup</a>
+    </li>
+</ul>
+{% endblock %}
+
+{% form_theme form 'AppydoTestBundle:Form:bootstrap.html.twig' %}
+
+{% block content %}
+<form class="form-horizontal" action="{{ path('user_create') }}" method="post" {{ form_enctype(form) }}>
+<fieldset class="control-group">
+<legend>Signup</legend>
+<p>
+    {{ form_errors(form) }}
+</p>
+    {{ form_row(form.username) }}
+    {{ form_row(form.password) }}
+    {{ form_row(form.confirmPassword) }}
+    {{ form_row(form.email) }}
+
+    {{ form_widget(form._token) }}
+
+    <div class="form-actions">
+        <button class="btn btn-primary" type="submit">Signup</button>
+        <a class="btn" href="{{ path('_appydo') }}">
+            Back
+        </a>
+    </div>
+
+</fieldset>
+</form>
+{% endblock %}

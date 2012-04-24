@@ -1,0 +1,141 @@
+{% extends 'AppydoTestBundle::admin.html.twig' %}
+
+{% block title "Create Project" %}
+
+{% block content %}
+<form class="form-horizontal" action="{{ path('project_create') }}" method="post" {{ form_enctype(form) }}>
+<fieldset>
+<legend>Create Project</legend>
+    {{ form_errors(form) }}
+
+    <div class="control-group">
+        {{ form_label(form.name, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(form.name) }}</div>
+        {{ form_errors(form.name) }}
+    </div>
+
+    <div class="control-group">
+        {{ form_label(form.description, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(form.description) }}</div>
+        {{ form_errors(form.description) }}
+    </div>
+
+    <div class="control-group">
+        {{ form_label(form.keywords, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(form.keywords) }}</div>
+        {{ form_errors(form.keywords) }}
+    </div>
+
+    <div class="control-group">
+        {{ form_label(form.note, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(form.note) }}</div>
+        {{ form_errors(form.note) }}
+    </div>
+
+
+    <div class="control-group">
+        {{ form_label(form.banner, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(form.banner) }}</div>
+        {{ form_errors(form.banner) }}
+    </div>
+
+    <div class="control-group">
+        {{ form_label(form.footer, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(form.footer) }}</div>
+        {{ form_errors(form.footer) }}
+    </div>
+
+    <div class="control-group">
+        {{ form_label(form.subtitle, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(form.subtitle) }}</div>
+        {{ form_errors(form.subtitle) }}
+    </div>
+
+    <div class="control-group">
+        <label class="control-label">Parameter</label>
+        <div class="controls">
+            <label class="checkbox" for="appydo_testbundle_projecttype_hide">
+                {{ form_widget(form.hide) }}
+                Hide
+                {{ form_errors(form.hide) }}
+            </label>
+        </div>
+        <div class="controls">
+            <label class="checkbox" for="appydo_testbundle_projecttype_comment">
+                {{ form_widget(form.comment) }}
+                Comment
+                {{ form_errors(form.comment) }}
+            </label>
+        </div>
+        <div class="controls">
+            <label class="checkbox" for="appydo_testbundle_projecttype_hits">
+                {{ form_widget(form.hits) }}
+                Hits
+                {{ form_errors(form.hits) }}
+            </label>
+        </div>
+        <div class="controls">
+            <label class="checkbox" for="appydo_testbundle_projecttype_menu">
+                {{ form_widget(form.menu) }}
+                Menu
+                {{ form_errors(form.menu) }}
+            </label>
+        </div>
+        <div class="controls">
+            <label class="checkbox" for="appydo_testbundle_projecttype_contact">
+                {{ form_widget(form.contact) }}
+                Contact
+                {{ form_errors(form.contact) }}
+            </label>
+        </div>
+        <div class="controls">
+            <label class="checkbox" for="appydo_testbundle_projecttype_config">
+                {{ form_widget(form.config) }}
+                Config
+                {{ form_errors(form.config) }}
+            </label>
+        </div>
+		<div class="controls">
+            <label class="checkbox" for="appydo_testbundle_projecttype_stat">
+                {{ form_widget(form.stat) }}
+                Config
+                {{ form_errors(form.stat) }}
+            </label>
+        </div>
+		<div class="controls">
+            <label class="checkbox" for="appydo_testbundle_projecttype_log">
+                {{ form_widget(form.log) }}
+                Config
+                {{ form_errors(form.log) }}
+            </label>
+        </div>
+    </div>
+{#
+    <div class="control-group">
+        {{ form_label(form.created, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(form.created) }}</div>
+        {{ form_errors(form.created) }}
+    </div>
+
+    <div class="control-group">
+        {{ form_label(form.updated, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(form.updated) }}</div>
+        {{ form_errors(form.updated) }}
+    </div>
+
+    <div class="control-group">
+        {{ form_label(form.author, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(form.author) }}</div>
+        {{ form_errors(form.author) }}
+    </div>
+#}
+    {{ form_widget(form._token) }}
+
+    <div class="form-actions">
+        <button class="btn btn-primary" type="submit">Create</button>
+        <a class="btn" href="{{ path('project') }}">
+            Back to the list
+        </a>
+    </div>
+</form>
+{% endblock %}

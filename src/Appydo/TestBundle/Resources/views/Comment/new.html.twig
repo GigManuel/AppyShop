@@ -1,0 +1,23 @@
+{% extends 'AppydoTestBundle::admin.html.twig' %}
+
+{% block title "Comment list" %}
+
+{% form_theme form 'AppydoTestBundle:Form:bootstrap.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Comment creation</h1>
+</div>
+
+<form action="{{ path('comment_create') }}" method="post" {{ form_enctype(form) }}>
+
+    {{ form_widget(form) }}
+    <div class="form-actions">
+        <button class="btn btn-primary" type="submit">Save</button>
+        <a class="btn" href="{{ path('comment') }}">
+            List
+        </a>
+    </div>
+</form>
+
+{% endblock %}

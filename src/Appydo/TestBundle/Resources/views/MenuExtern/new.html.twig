@@ -1,0 +1,32 @@
+{% extends 'AppydoTestBundle::admin.html.twig' %}
+
+{% block title "Menu new" %}
+
+{% form_theme form 'AppydoTestBundle:Form:bootstrap.html.twig' %}
+
+{% block content %}
+<form class="form-horizontal" action="{{ path('menuextern_create') }}" method="post" {{ form_enctype(form) }}>
+<fieldset>
+<legend>New menu extern</legend>
+
+    <p>
+        {{ form_errors(form) }}
+    </p>
+
+    {{ form_row(form.name) }}
+    {{ form_row(form.url) }}
+    {{ form_row(form.menu) }}
+    {{ form_row(form.hide) }}
+
+    {{ form_widget(form._token) }}
+
+
+    <div class="form-actions">
+        <button class="btn btn-primary" type="submit">Save</button>
+        <a class="btn" href="{{ path('menu') }}">
+            List
+        </a>
+    </div>
+</fieldset>
+</form>
+{% endblock %}

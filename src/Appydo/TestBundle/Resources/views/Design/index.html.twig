@@ -1,0 +1,25 @@
+{% extends 'AppydoTestBundle::admin.html.twig' %}
+
+{% block title "Files" %}
+
+{% block content %}
+    <form action="{{ path('design') }}" method="post">
+    {% for key,design in listFiles %}
+        <div class="well" style="clear:both">
+                <div style="float:left;width:100px;">
+                    {{ design }}
+                </div>
+                <div style="float:left">
+                    {% if descriptions[key] is defined %}
+                        {{descriptions[key]}}
+                    {% else %}
+                        Pas de description.
+                    {% endif %}
+                </div>
+            <div style="clear:both;padding-top: 1em;">
+                    <button class="btn btn-primary{% if project.theme==design %} disabled{% endif %}" name="design" value="{{design}}">Select</a>
+            </div>
+        </div>
+    {% endfor %}
+    </form>
+{% endblock %}

@@ -1,0 +1,51 @@
+<h1>Trash list</h1>
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Content</th>
+            <th>Rss</th>
+            <th>Comment</th>
+            <th>Created</th>
+            <th>Updated</th>
+            <th>Translate_index</th>
+            <th>Language</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('trash_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td>{{ entity.name }}</td>
+            <td>{{ entity.content }}</td>
+            <td>{{ entity.rss }}</td>
+            <td>{{ entity.comment }}</td>
+            <td>{% if entity.created %}{{ entity.created|date('Y-m-d H:i:s') }}{% endif%}</td>
+            <td>{% if entity.updated %}{{ entity.updated|date('Y-m-d H:i:s') }}{% endif%}</td>
+            <td>{{ entity.translateindex }}</td>
+            <td>{{ entity.language }}</td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('trash_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('trash_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<ul>
+    <li>
+        <a href="{{ path('trash_new') }}">
+            Create a new entry
+        </a>
+    </li>
+</ul>

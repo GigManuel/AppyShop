@@ -1,0 +1,45 @@
+{% extends 'AppydoTestBundle::admin.html.twig' %}
+
+{% block title "Comment list" %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Comment list</h1>
+</div>
+
+<table>
+	<tr>
+		<th>Sélectionnez un topic</th>
+		<th>Derniers messages (tous topics)</th>
+	</tr>
+	<tr>
+		<td>
+			{% for topic in topics %}
+				<p>{{ topic }}</p>
+			{% endfor %}
+		</td>
+		<td>
+
+    {% for entity in entities %}
+        
+        <h2><a href="{{ path('comment_show', { 'id': entity.id }) }}">{{ entity.name }}</a></h2>
+		<p>
+			{{ entity.content }}
+		</p>
+		<p>
+			<a href="{{ path('topic_edit', { 'id': (entity.topic)?entity.topic.id:0 }) }}">{{ entity.topic }}</a>
+			{% if entity.created %}{{ entity.created|date('Y-m-d H:i:s') }}{% endif%}
+			{% if entity.updated %}{{ entity.updated|date('Y-m-d H:i:s') }}{% endif%}
+		</p>
+    {% endfor %}
+
+		</td>
+	</tr>
+</table>
+
+<div class="form-actions">
+    <a class="btn btn-primary" href="{{ path('comment_new') }}">
+        Comment
+    </a>
+</div>
+{% endblock %}  

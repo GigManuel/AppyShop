@@ -1,0 +1,22 @@
+{% extends '::'~theme~'/base.html.twig' %}
+
+{% block title "Appydo" %}
+
+{% block content %}
+
+    {% if project==null %}
+        Unable to find project.
+    {% endif %}
+
+    {% for entity in entities %}
+		<div style="float:left">
+	        <h2>{{ entity.name }}</h2>
+	        <p>{{ entity.description|raw }}</p>
+	        {% if app.user.id is defined and app.user.current==project %}
+	            <p><a href="{{ path('_appydo_admin_shop_product_edit', {'id':entity.id}) }}">Edit</a></p>
+	        {% endif %}
+			<p><img style="border-radius: 10px" src="{{asset(entity.getWebPath(entity.category.project.id))}}"></p>
+		</div>
+    {% endfor %}
+
+{% endblock %}

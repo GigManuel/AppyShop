@@ -1,0 +1,40 @@
+{% extends '::'~theme~'/base.html.twig' %}
+
+{% block title "Appydo" %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Hébergeur de fichiers gratuit</h1>
+</div>
+
+<p>Bienvenue sur AppyFiles !</p>
+<p>Stockez vos fichiers musiques, vidéos, images et photos gratuitement et simplement en 1 coup de clic.</p>
+<p>Hébergement de qualité.</p>
+<p>L'accès et le chargement de vos images et photos sont rapides et optimisés grâce à notre hébergement sur serveur performant.</p>
+<p>Le lien de votre/vos image(s) vous est/sont fournis instantanément après l'upload de celle(s)-ci.</p>
+
+<form class="form-horizontal" action="{{ path('_appydo_files_upload') }}" method="post" {{ form_enctype(form) }}>
+<fieldset>
+<legend>Envoi de fichier</legend>
+    {{ form_errors(form) }}
+
+    <div style="text-align:center;padding-bottom:2em;padding-top:1em;">
+        {{ form_widget(form.file, { 'attr': {'style': 'font-size:x-large'}}) }}
+        {{ form_errors(form.file) }}
+    </div>
+
+    <p>En hébergeant votre image, vous acceptez les <a>conditions générales d'utilisation.</a></p>
+    {{ form_widget(form._token) }}
+
+    <div style="text-align:center">
+        <button class="btn btn-primary btn-large" type="submit">Upload</button>
+    </div>
+</fieldset>
+</form>
+
+<blockquote>
+  <p>Merci d'utiliser AppyFiles pour l'hébergement de vos fichiers.</p>
+  <small>Equipe AppyDo</small>
+</blockquote>
+
+{% endblock %}

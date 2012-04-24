@@ -1,0 +1,40 @@
+{% extends 'AppydoTestBundle::admin.html.twig' %}
+
+{% block title "Log" %}
+
+{% block content %}
+
+<div class="page-header">
+    <h1>Log</h1>
+</div>
+
+<table class="table table-striped">
+    <tbody>
+        <tr>
+            <th>Name</th>
+            <td>{{ entity.name }}</td>
+        </tr>
+        <tr>
+            <th>User</th>
+            <td>{{ entity.user }}</td>
+        </tr>
+        <tr>
+            <th>Created</th>
+            <td>{{ entity.created|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Updated</th>
+            <td>{{ entity.updated|date('Y-m-d H:i:s') }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="well">{{ entity.description }}</div>
+
+<div class="form-actions">
+    <a class="btn" href="{{ path('log') }}">
+        List
+    </a>
+</div>
+
+{% endblock %}

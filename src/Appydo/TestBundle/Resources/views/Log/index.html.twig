@@ -1,0 +1,34 @@
+{% extends 'AppydoTestBundle::admin.html.twig' %}
+
+{% block title "Log" %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Log</h1>
+</div>
+
+<div class="form-actions">
+    <a class="btn btn-danger" href="{{ path('log_empty') }}">
+        Empty
+    </a>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Action</th>
+            <th>User</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('log_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+            <td>{{ entity.user }}</a></td>
+            <td>{% if entity.created %}{{ entity.created|date('Y-m-d H:i:s') }}{% endif%}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

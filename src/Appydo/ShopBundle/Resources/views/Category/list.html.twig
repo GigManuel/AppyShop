@@ -1,0 +1,5 @@
+{% for key, entity in entities %}
+    
+    <li {% if key==0 %}class="first"{% endif %}><a href="{{path('_appydo_shop_category',{'name':name,'id':entity.id,'category':entity.name})}}">{{entity.name}}</a></li>
+    
+{% endfor %}

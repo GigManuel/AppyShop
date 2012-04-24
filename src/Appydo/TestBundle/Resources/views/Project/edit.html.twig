@@ -1,0 +1,163 @@
+{% extends 'AppydoTestBundle::admin.html.twig' %}
+
+{% block title "Project" %}
+
+{% block content %}
+
+<form class="form-horizontal" action="{{ path('project_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+<fieldset>
+<legend>Project</legend>
+
+    {{ form_errors(edit_form) }}
+
+    <div class="control-group">
+        {{ form_label(edit_form.name, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(edit_form.name) }}</div>
+        {{ form_errors(edit_form.name) }}
+    </div>
+
+    <div class="control-group">
+        {{ form_label(edit_form.description, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(edit_form.description) }}</div>
+        {{ form_errors(edit_form.description) }}
+    </div>
+
+    <div class="control-group">
+        {{ form_label(edit_form.keywords, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(edit_form.keywords) }}</div>
+        {{ form_errors(edit_form.keywords) }}
+    </div>
+
+    <div class="control-group">
+        {{ form_label(edit_form.banner, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(edit_form.banner) }}</div>
+        {{ form_errors(edit_form.banner) }}
+    </div>
+{#
+    <div class="control-group">
+        {{ form_label(edit_form.note, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(edit_form.note) }}</div>
+        {{ form_errors(edit_form.note) }}
+    </div>
+#}
+    <div class="control-group">
+        {{ form_label(edit_form.footer, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(edit_form.footer) }}</div>
+        {{ form_errors(edit_form.footer) }}
+    </div>
+
+    <div class="control-group">
+        {{ form_label(edit_form.subtitle, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(edit_form.subtitle) }}</div>
+        {{ form_errors(edit_form.subtitle) }}
+    </div>
+
+    <div class="control-group">
+        <label class="control-label">Parameter</label>
+        <div class="controls">
+            <label class="checkbox" for="appydo_testbundle_projecttype_hide">
+                {{ form_widget(edit_form.hide) }}
+                Hide
+                {{ form_errors(edit_form.hide) }}
+            </label>
+        </div>
+        <div class="controls">
+            <label class="checkbox" for="appydo_testbundle_projecttype_comment">
+                {{ form_widget(edit_form.comment) }}
+                Comment
+                {{ form_errors(edit_form.comment) }}
+            </label>
+        </div>
+        <div class="controls">
+            <label class="checkbox" for="appydo_testbundle_projecttype_menu">
+                {{ form_widget(edit_form.menu) }}
+                Menu
+                {{ form_errors(edit_form.menu) }}
+            </label>
+        </div>
+        <div class="controls">
+            <label class="checkbox" for="appydo_testbundle_projecttype_hits">
+                {{ form_widget(edit_form.hits) }}
+                Hits
+                {{ form_errors(edit_form.hits) }}
+            </label>
+        </div>
+        <div class="controls">
+            <label class="checkbox" for="appydo_testbundle_topictype_contact">
+                {{ form_widget(edit_form.contact) }}
+                Contact
+                {{ form_errors(edit_form.contact) }}
+            </label>
+        </div>
+        <div class="controls">
+            <label class="checkbox" for="appydo_testbundle_topictype_config">
+                {{ form_widget(edit_form.config) }}
+                Config
+                {{ form_errors(edit_form.config) }}
+            </label>
+        </div>
+		<div class="controls">
+            <label class="checkbox" for="appydo_testbundle_topictype_stat">
+                {{ form_widget(edit_form.stat) }}
+                Stat
+                {{ form_errors(edit_form.stat) }}
+            </label>
+        </div>
+		<div class="controls">
+            <label class="checkbox" for="appydo_testbundle_topictype_log">
+                {{ form_widget(edit_form.log) }}
+                Log
+                {{ form_errors(edit_form.log) }}
+            </label>
+        </div>
+    </div>
+{#
+    <div class="control-group">
+        {{ form_label(edit_form.created, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(edit_form.created) }}</div>
+        {{ form_errors(edit_form.created) }}
+    </div>
+
+    <div class="control-group">
+        {{ form_label(edit_form.updated, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(edit_form.updated) }}</div>
+        {{ form_errors(edit_form.updated) }}
+    </div>
+
+    <div class="control-group">
+        {{ form_label(edit_form.author, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(edit_form.author) }}</div>
+        {{ form_errors(edit_form.author) }}
+    </div>
+#}
+    {{ form_widget(edit_form._token) }}
+
+    <div class="form-actions">
+        <button class="btn btn-primary" type="submit">Save</button>
+        <a class="btn" href="{{ path('_appydo_admin') }}">
+            Back
+        </a>
+    </div>
+</form>
+
+<form action="{{ path('project_delete', { 'id': entity.id }) }}" method="post">
+<fieldset>
+<legend>Delete project</legend>
+    
+    <div class="well">
+        <div>
+            Warning: Once your account will be deleted, you can't recover that.
+        </div>
+        <div>
+            You will have to create a new account and will have to start from scratch.
+        </div>
+    </div>
+
+    <div class="form-actions">
+        {{ form_widget(delete_form) }}
+        <button class="btn btn-danger" type="submit">Delete</button>
+    </div>
+</fieldset>
+</form>
+
+{% endblock %}

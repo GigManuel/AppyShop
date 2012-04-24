@@ -1,0 +1,27 @@
+{% extends '::'~theme~'/base.html.twig' %}
+
+{% block title "Contact" %}
+
+{% block content %}
+
+    <div class="alert alert-success">
+    <a class="close" data-dismiss="alert">×</a>
+    <h4 class="alert-heading">Thank you!</h4>
+    You successfully send this message.
+    </div>
+
+    <div class="well">
+        <p>Name : {{name}}</p>
+        <p>Email : {{email}}</p>
+        <p>Subject : {{subject}}</p>
+        <p>Description : {{message}}</p>
+        {% if copy %}<p>A copy is send to {{email}}</p>{% endif %}
+    </div>
+
+    <div class="form-actions">
+        <a class="btn" href="{{ path('_appydo') }}">
+            Back to home
+        </a>
+    </div>
+
+{% endblock %}

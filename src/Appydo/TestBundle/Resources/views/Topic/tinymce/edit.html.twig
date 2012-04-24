@@ -1,0 +1,128 @@
+{% extends 'AppydoTestBundle::admin.html.twig' %}
+
+{% block title "Topic edit" %}
+
+{% block scripts %}
+<!-- Load jQuery -->
+<link type="text/css" href="{{ asset('bundles/appydotest/css/ui-lightness/jquery-ui-1.8.18.custom.css') }}" rel="stylesheet" />	
+
+<script type="text/javascript" src="{{ asset('bundles/appydotest/js/jquery-1.7.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/appydotest/js/jquery-ui-1.8.18.custom.min.js') }}"></script>
+
+<!-- Load TinyMCE -->
+<script type="text/javascript" src="{{ asset('bundles/appydotest/js/tiny_mce/jquery.tinymce.js') }}"></script>
+<script type="text/javascript">
+	$().ready(function() {
+            $('.add').click(function() {
+                $('textarea.tinymce').tinymce().execCommand('mceInsertContent',false,'<img src="'+this.href+'" />');
+                return false;
+            });
+            $( "#dialog" ).dialog({ autoOpen: false });
+            $('#box').click(function() {$('#dialog').dialog('open')});
+		$('textarea.tinymce').tinymce({
+			// Location of TinyMCE script
+			script_url : '{{ asset('bundles/appydotest/js/tiny_mce/tiny_mce.js') }}',
+                        remove_script_host : false,
+                        convert_urls : false,
+			// General options
+			theme : "advanced",
+			plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,advlist",
+
+			// Theme options
+			theme_advanced_buttons1 : "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
+			theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+			theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
+			theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreak",
+			theme_advanced_toolbar_location : "top",
+			theme_advanced_toolbar_align : "left",
+			theme_advanced_statusbar_location : "bottom",
+			theme_advanced_resizing : true,
+
+			// Example content CSS (should be your site CSS)
+			// content_css : "css/content.css",
+
+			// Drop lists for link/image/media/template dialogs
+			template_external_list_url : "lists/template_list.js",
+			external_link_list_url : "lists/link_list.js",
+			external_image_list_url : "lists/image_list.js",
+			media_external_list_url : "lists/media_list.js",
+
+			// Replace values for the template plugin
+			template_replace_values : {
+				username : "Some User",
+				staffid : "991234"
+			}
+		});
+	});
+</script>
+<!-- /TinyMCE -->
+{% endblock %}
+
+{% block content %}
+
+<div id="dialog">
+    {% if dir_exists==false %}
+        <p>Erreur : le dossier image n'existe pas.</p>
+    {% else %}
+        {% for image in listFiles %}
+            <p><a href="{{ app.request.scheme }}://{{ app.request.host }}{{ asset('uploads/' ~ app.user.current.id ~ '/' ~ image) }}" class="add">{{image}}</a></p>
+        {% endfor %}
+    {% endif %}
+</div>
+
+<form action="{{ path('topic_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+<fieldset>
+<legend>Topic edit</legend>
+    {{ form_errors(edit_form) }}
+
+    <div class="control-group">
+        {{ form_label(edit_form.name, null, { 'attr': {'class': 'control-label'}}) }}
+        <div class="controls">{{ form_widget(edit_form.name) }}</div>
+        {{ form_errors(edit_form.name) }}
+    </div>
+
+    <div>
+        <a class="btn" href="#" id="box">Insert images</a>
+        <a class="btn" href="{{ path('_appydo_project', {'name': project.name}) }}">Aperçu</a>
+        <a class="btn" href="/admin/myhistories?where=1">Historique</a>
+    </div>
+
+    <div class="controls">{{ form_widget(edit_form.content, { 'attr': {'class': 'control-label tinymce'}}) }}</div>
+
+    {{ form_errors(edit_form.content) }}
+
+    <div class="control-group">
+        <label class="control-label">Parameter</label>
+        <div class="controls">
+            <label class="checkbox" for="appydo_testbundle_topictype_hide">
+                {{ form_widget(edit_form.hide) }}
+                Hide
+                {{ form_errors(edit_form.hide) }}
+            </label>
+        </div>
+        <div class="controls">
+            <label class="checkbox" for="appydo_testbundle_topictype_comment">
+                {{ form_widget(edit_form.comment) }}
+                Comment
+                {{ form_errors(edit_form.comment) }}
+            </label>
+        </div>
+    </div>
+
+    {{ form_widget(edit_form._token) }}
+
+    <div class="form-actions">
+        <button class="btn btn-primary" type="submit">
+            Save
+        </button>
+        <a class="btn" href="{{ path('topic_new') }}">
+            Create
+        </a>
+        <a class="btn" href="{{ path('topic') }}">
+            List
+        </a>
+    </div>
+
+</fieldset>
+</form>
+{% endblock %}

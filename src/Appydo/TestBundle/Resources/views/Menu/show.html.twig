@@ -1,0 +1,58 @@
+{% extends 'AppydoTestBundle::admin.html.twig' %}
+
+{% block title "Menu edit" %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Menu</h1>
+</div>
+
+<table class="table table-striped">
+    <tbody>
+        <tr>
+            <th>Name</th>
+            <td><a href="{{ path('menu_edit', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+        </tr>
+        <tr>
+            <th>Parent Menu</th>
+            <td>{{ entity.menu }}</td>
+        </tr>
+        <tr>
+            <th>Hide</th>
+            <td>{{ entity.hide }}</td>
+        </tr>
+        <tr>
+            <th>Created</th>
+            <td>{{ entity.created|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Updated</th>
+            <td>{{ entity.updated|date('Y-m-d H:i:s') }}</td>
+        </tr>
+    </tbody>
+</table>
+
+{% for entity in menuinterns %}
+    <p><a href="{{ path('menuintern_edit', { 'id': entity.id }) }}">{{ entity.name }}</a></p>
+{% endfor %}
+
+{% for entity in menuexterns %}
+    <p><a href="{{ path('menuextern_edit', { 'id': entity.id }) }}">{{ entity.name }}</a></p>
+{% endfor %}
+
+<div class="form-actions">
+    <a class="btn btn-primary" href="{{ path('menuintern_new', { 'id': entity.id }) }}">
+        Intern link
+    </a>
+    <a class="btn btn-primary" href="{{ path('menuextern_new', { 'id': entity.id }) }}">
+        Extern link
+    </a>
+    <a class="btn btn-primary" href="{{ path('menu_edit', { 'id': entity.id }) }}">
+        Edit
+    </a>
+    <a class="btn" href="{{ path('menu') }}">
+        List
+    </a>
+</div>
+
+{% endblock %}

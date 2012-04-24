@@ -1,0 +1,36 @@
+{% extends 'AppydoTestBundle::admin.html.twig' %}
+
+{% block title "Menu list" %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Menu list</h1>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Hide</th>
+            <th>Created</th>
+            <th>Updated</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('menu_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+            <td>{{ entity.hide }}</td>
+            <td>{{ entity.created }}</td>
+            <td>{{ entity.updated }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<div class="form-actions">
+    <a class="btn btn-primary" href="{{ path('menu_new') }}">
+        Create
+    </a>
+</div>
+{% endblock %}

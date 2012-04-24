@@ -1,0 +1,30 @@
+{% extends 'AppydoTestBundle::admin.html.twig' %}
+
+{% block title "Menu new" %}
+
+{% form_theme edit_form 'AppydoTestBundle:Form:bootstrap.html.twig' %}
+
+{% block content %}
+
+<form class="form-horizontal" action="{{ path('menuintern_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+<fieldset>
+<legend>Edit menu intern</legend>
+
+    {{ form_widget(edit_form) }}
+
+    <div class="form-actions">
+        <button class="btn btn-primary" type="submit">Save</button>
+        <a class="btn" href="{{ path('menu') }}">
+            List
+        </a>
+    </div>
+
+</fieldset>
+</form>
+
+<form action="{{ path('menuintern_delete', { 'id': entity.id }) }}" method="post">
+    {{ form_widget(delete_form) }}
+    <button class="btn btn-danger" type="submit">Delete</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends '::'~theme~'/base.html.twig' %}
+
+{% block title "Appydo" %}
+
+{% block breadcrumb %}
+    <ul class="breadcrumb">
+        <li>
+            <a href="{{ path('_appydo_project',{'name':project.name}) }}">Home</a> <span class="divider">/</span>
+        </li>
+        <li class="active">
+            {{ topic.name }}
+        </li>
+    </ul>
+{% endblock %}
+
+{% block menu %}
+    {% for menu in menus %}
+        <p><a href="{{ menu.url }}">{{ menu.name }}</a></p>
+    {% endfor%}
+{% endblock %}
+
+{% block description %}
+    {% if project.description is defined %}
+        {{ project.description }}
+    {% endif %}
+{% endblock %}
+
+{% block presentation %}
+    {% if project.description is defined %}
+        {{ project.description }}
+    {% endif %}
+{% endblock %}
+
+{% block keywords %}
+    {% if project.keywords is defined %}
+        {{ project.keywords }}
+    {% endif %}
+{% endblock %}
+
+{% block author %}
+    {% if project.author is defined %}
+        {{ project.author }}
+    {% endif %}
+{% endblock %}
+
+{% block project %}
+    {% if project.name is defined %}
+        <a class="brand" href="{{ path('_appydo_project',{'name':project.name}) }}">{{ project.name }}</a>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+{#
+    <h1>{{ (project)?project.name:'Error' }}</h1>
+#}
+
+    {% if project==null %}
+        Unable to find project.
+    {% endif %}
+
+    <div class="page-header">
+        <h1>{{ topic.name }}</h1>
+    </div>
+
+    <p>{{ topic.content|raw }}</p>
+    {% if app.user.id is defined and app.user.current==project %}
+    	<p><a href="{{ path('topic_edit', {'id':topic.id}) }}">Edit</a></p>
+    {% endif %}
+
+{% endblock %}

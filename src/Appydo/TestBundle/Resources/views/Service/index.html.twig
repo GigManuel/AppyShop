@@ -1,0 +1,45 @@
+{% extends 'AppydoTestBundle::admin.html.twig' %}
+
+{% block title "Service list" %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Service list</h1>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Url</th>
+            <th>Type</th>
+            <th>Hide</th>
+            <th>Created</th>
+            <th>Updated</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('service_edit', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+            <td>{{ entity.url }}</td>
+            <td>{{ entity.type }}</td>
+            <td>{{ entity.hide }}</td>
+            <td>{% if entity.created %}{{ entity.created|date('Y-m-d H:i:s') }}{% endif%}</td>
+            <td>{% if entity.updated %}{{ entity.updated|date('Y-m-d H:i:s') }}{% endif%}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<div class="form-actions">
+    <a class="btn btn-primary" href="{{ path('service_new') }}">
+        <i class="icon-plus icon-white"></i>
+        Service
+    </a>
+    <a class="btn" href="{{ path('_appydo_admin') }}">
+        Back
+    </a>
+</div>
+{% endblock %}

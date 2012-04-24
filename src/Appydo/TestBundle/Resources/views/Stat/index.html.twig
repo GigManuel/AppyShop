@@ -1,0 +1,42 @@
+{% extends 'AppydoTestBundle::admin.html.twig' %}
+
+{% block title "Stats list" %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Stat list</h1>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Url</th>
+            <th>Date</th>
+            <th>Ip</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td>{{ entity.url }}</td>
+            <td>{{ entity.date|date("d/m/Y") }}</td>
+            <td>{{ entity.ip }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<div class="pagination">
+  <ul>
+    <li><a href="{{ path('stat_list',{page:previous}) }}">Prev</a></li>
+    <li class="active">
+      <a href="{{ path('stat_list',{page:1}) }}">1</a>
+    </li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="{{ path('stat_list',{page:next}) }}">Next</a></li>
+  </ul>
+</div>
+
+{% endblock %}

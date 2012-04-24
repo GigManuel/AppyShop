@@ -1,0 +1,35 @@
+{% extends 'AppydoTestBundle::admin.html.twig' %}
+
+{% block title "User edit" %}
+
+{% form_theme edit_form 'AppydoTestBundle:Form:bootstrap.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Profil</h1>
+</div>
+
+<form class="form-horizontal" action="{{ path('user_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+    {{ form_widget(edit_form) }}
+    <div class="form-actions">
+        <button class="btn btn-primary" type="submit">
+            <i class="icon-pencil icon-white"></i>
+            Edit
+        </button>
+        <a class="btn" href="{{ path('_appydo_admin') }}">
+            Back
+        </a>
+    </div>
+</form>
+
+<div class="form-actions">
+        <form action="{{ path('user_delete', { 'id': entity.id }) }}" method="post">
+
+            {{ form_widget(delete_form) }}
+            <button class="btn btn-danger" type="submit">
+                <i class="icon-trash icon-white"></i>
+                Delete
+            </button>
+        </form>
+</div>
+{% endblock %}
