@@ -112,7 +112,11 @@ class ProjectController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('project_show', array('id' => $entity->getId())));
+			$user->setCurrent($entity);
+			$em->persist($user);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('project_edit', array('id' => $entity->getId())));
             
         }
 

@@ -70,14 +70,19 @@
                 <div class="nav-collapse">
                     <ul class="nav">
                     <li class="active"><a href="{{ path('_appydo') }}" accesskey="1">Home</a></li>
-
 					{% if project.name is defined %}<li><a href="{{ path('_appydo_contact',{'name':project.name}) }}" accesskey="2" title=""><span>Contact</span></a></li>{% endif %}
                     {% if app.user %}
+
                         <li><a href="{{ path('_appydo_admin') }}" accesskey="3">Admin</a></li>
                         <li><a href="{{ path('_appydo_logout') }}" accesskey="4">Logout</a></li>
+
                     {% else %}
-                        {% if project.name is defined %}<li><a href="{{ path('_appydo_login',{'name': project.name}) }}" accesskey="3">Login</a></li>{% endif %}
-                        <li><a href="{{ path('user_new') }}"  accesskey="4">Signup</a></li>
+
+						{% if project.name is defined %}
+	                       	<li><a href="{{ path('_appydo_login', {'name':project.name}) }}" accesskey="3">Login</a></li>
+						{% endif %}
+						<li><a href="{{ path('user_new', {'name': (project.name is defined) ? project.name : '' }) }}"><span>Signup</span></a></li>
+
                     {% endif %}
                     <li>
                         <form class="navbar-search pull-left">
@@ -127,12 +132,14 @@
             </div>
         </div>
         <div class="span2">
+		  {% if project.description %}
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
               <li class="nav-header">Presentation</li>
-              <li>{% block presentation %}{% endblock %}</li>
+              <li>{{ project.description|raw|nl2br }}</li>
             </ul>
           </div>
+		  {% endif %}
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
               <li class="nav-header">Information</li>
@@ -148,6 +155,7 @@
             <a href="http://www.appytask.com">AppyTask</a>
             <a href="http://www.appydo.com">AppyShop</a>
         </p>
+		<p>© {{ "now"|date("Y") }}</p>
       </footer>
     </div>
 </html>

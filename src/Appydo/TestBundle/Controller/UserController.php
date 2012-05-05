@@ -15,14 +15,14 @@ use Appydo\TestBundle\Form\UserEdit;
 /**
  * User controller.
  *
- * @Route("/admin/user")
+ * @Route("")
  */
 class UserController extends Controller
 {
     /**
      * Lists all User entities.
      *
-     * @Route("/", name="user")
+     * @Route("/admin/user", name="user")
      * @Template()
      */
     public function indexAction()
@@ -37,7 +37,7 @@ class UserController extends Controller
     /**
      * Finds and displays a User entity.
      *
-     * @Route("/{id}/show", name="user_show")
+     * @Route("/admin/user/{id}/show", name="user_show")
      * @Template()
      */
     public function showAction($id)
@@ -63,8 +63,7 @@ class UserController extends Controller
     /**
      * Displays a form to create a new User entity.
      *
-     * @Route("/signup/", defaults={"name"=""}, name="user_new"),
-     * @Route("/signup/{name}", name="user_new_")
+     * @Route("/user/signup/{name}", defaults={"name"=""}, name="user_new"),
      * @Template()
      */
     public function newAction($name)
@@ -91,7 +90,7 @@ class UserController extends Controller
     /**
      * Creates a new User entity.
      *
-     * @Route("/create", name="user_create")
+     * @Route("/user/create", name="user_create")
      * @Method("post")
      * @Template("AppydoTestBundle:User:new.html.twig")
      */
@@ -130,7 +129,7 @@ class UserController extends Controller
             $token = new \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken(
                 $entity,
                 null,
-                'main',
+                'secured_area',
                 $entity->getRoles()
             );
             // give it to the security context
@@ -150,7 +149,7 @@ class UserController extends Controller
     /**
      * Displays a form to edit an existing User entity.
      *
-     * @Route("/{id}/edit", name="user_edit")
+     * @Route("/admin/user/{id}/edit", name="user_edit")
      * @Template()
      */
     public function editAction($id)
@@ -178,7 +177,7 @@ class UserController extends Controller
     /**
      * Edits an existing User entity.
      *
-     * @Route("/{id}/update", name="user_update")
+     * @Route("/admin/user/{id}/update", name="user_update")
      * @Method("post")
      * @Template("AppydoTestBundle:User:edit.html.twig")
      */
@@ -227,7 +226,7 @@ class UserController extends Controller
     /**
      * Deletes a User entity.
      *
-     * @Route("/{id}/delete", name="user_delete")
+     * @Route("/admin/user/{id}/delete", name="user_delete")
      * @Method("post")
      */
     public function deleteAction($id)

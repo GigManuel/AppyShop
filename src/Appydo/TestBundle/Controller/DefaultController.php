@@ -55,28 +55,43 @@ class DefaultController extends Controller
                     array('id'      => 'ASC')
                 );
         }
-        
-        
-        /*
-        $stat = new Stat();
-        $stat->setHits($global->getHits()+1);
-        $em->persist($global);
-        $em->flush();
-        */
-        return array(
-            'project' => $project,
-            'topics'  => $topics,
-            'theme'   => (isset($project) and $project->getTheme()!='')?$project->getTheme():'default',
-            'menus'   => $menus,
-            );
+
+	    /*
+	    $stat = new Stat();
+	    $stat->setHits($global->getHits()+1);
+	    $em->persist($global);
+	    $em->flush();
+	    */
+	    return array(
+	        'project' => $project,
+	        'topics'  => $topics,
+	        'theme'   => (isset($project) and $project->getTheme()!='')?$project->getTheme():'default',
+	        'menus'   => $menus,
+	        );
+	}
+	
+	/**
+     * @Route("/user/profil/{id}/{name}", requirements = {"id" = "\d+"}, name="_appydo_profil")
+     * @Template()
+     */
+    public function profilAction($id, $name)
+    {
+		$em     = $this->getDoctrine()->getEntityManager();
+		$user   = $this->getUser();
+		$profil = $em->getRepository('AppydoTestBundle:User')->findOneBy(array('id'=>$id));
+
+		return array(
+		   'profil' => $profil,
+		   'theme'   => (isset($project) and $project->getTheme()!='')?$project->getTheme():'default',
+		   );
     }
 
     /**
-     * @Route("/{name}", requirements={"name" = "^((?!(admin)).)*(!(/))*$"}, name="_appydo_project")
+     * @Route("/{name}", requirements={"name" = "^((?!(admin|login|contact)).)([\w]|[\s])*"}, name="_appydo_project")
      * @Template()
      */
      public function projectAction($name) {
-        // $this->container->setParameter('theme', 'blue');
+
         if (empty($name)) return $this->index();
         $name = strtolower($name);
         $em   = $this->getDoctrine()->getEntityManager();
@@ -123,7 +138,7 @@ class DefaultController extends Controller
     }
     
     /**
-     * @Route("/{name}/{id}/{topic}", name="_appydo_topic", requirements = {"id" = "\d+"})
+     * @Route("/{name}/{id}/{topic}/", name="_appydo_topic", requirements = {"id" = "\d+"}, name="_appydo_topic")
      * @Template()
      */
      public function topicAction($name, $id, $topic) {
@@ -200,16 +215,19 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/admin/login/{name}", name="_appydo_login")
+     * @Route("/login/{name}", defaults={"name"=""}, name="_appydo_login"),
      * @Template()
      */
     public function loginAction($name)
     {
-         
         $em      = $this->getDoctrine()->getEntityManager();
-        $query = $em->createQuery('SELECT p FROM AppydoTestBundle:Project p WHERE LOWER(p.name)=?1');
-        $query->setParameter(1, $name);
-        $project = $query->getSingleResult();
+		if (!empty($name)) {
+	        $query = $em->createQuery('SELECT p FROM AppydoTestBundle:Project p WHERE LOWER(p.name)=?1');
+	        $query->setParameter(1, $name);
+	        $project = $query->getSingleResult();
+		} else {
+			$project = null;
+		}
         
         $request = $this->getRequest();
         $session = $request->getSession();

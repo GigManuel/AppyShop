@@ -2,8 +2,7 @@ $user = $this->get('security.context')->getToken()->getUser();
 
 # Soucis avec les droits ?
 sudo chmod -R 777 app/cache/;sudo chmod -R 777 db/;sudo rm -r app/logs/*;sudo rm -r app/cache/*
-# Créer la base de données
-rm db/symfony.db;php app/console doctrine:schema:create -v;chmod 777 db/symfony.db
+sudo rm -r app/cache/* app/logs/*;rm db/symfony.db;php app/console doctrine:schema:create -v;chmod 777 db/symfony.db
 sudo chmod -R 777 app/cache/;sudo chmod -R 777 db/;sudo rm -r app/logs/*;sudo rm -r app/cache/*
 
 # Installer les assets

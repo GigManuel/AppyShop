@@ -88,7 +88,7 @@ class MenuInternController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('menuintern_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('menuintern_edit', array('id' => $entity->getId())));
             
         }
 
