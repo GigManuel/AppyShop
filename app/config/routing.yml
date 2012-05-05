@@ -31,8 +31,6 @@ AppydoTestBundle:
     resource: "@AppydoTestBundle/Controller/"
     type:     annotation
     prefix:   /
-    
-
 
 #root:
 #   resource: "@MilliwebAppCenterBundle/Controller/"
