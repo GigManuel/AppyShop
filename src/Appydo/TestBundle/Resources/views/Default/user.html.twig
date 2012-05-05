@@ -14,6 +14,12 @@
     {% endif %}
 {% endblock %}
 
+{% block presentation %}
+    {% if project.description is defined %}
+        {{ project.description|raw|nl2br }}
+    {% endif %}
+{% endblock %}
+
 {% block information %}
     {% if project.information is defined %}
         {{ project.information|raw|nl2br }}
@@ -39,21 +45,8 @@
 {% endblock %}
 
 {% block content %}
-{#
-    <div class="page-header">
-        <h1>{{ (project)?project.name:'Error' }}</h1>
-    </div>
-#}
-    {% if project==null %}
-        Unable to find project.
-    {% endif %}
 
-    {% for topic in topics %}
-        <h2><a href="{{ path('_appydo_topic',{'name':project.name,'id':topic.id,'topic':topic.name}) }}">{{ topic.name }}</a></h2>
-        <p>{{ topic.content|raw }}</p>
-        {% if app.user.id is defined and app.user.current==project %}
-        <p><a href="{{ path('topic_edit', {'id':topic.id}) }}">Edit</a></p>
-        {% endif %}
-    {% endfor %}
+    <h1>{{ entity.name }}</h1>
+	<p>{{ entity.description }}</p>
 
 {% endblock %}
