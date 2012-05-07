@@ -45,15 +45,13 @@ class PaymentController extends Controller
             $logger->info('PAYMENT VALIDATION : '.$key=$value);
         }
         $logger->info('-------------------------');
-        $response = new Response(json_encode(1));  
-        return $response;  
+        return new Response(1);  
     }
     
     /**
      * Lists all Payment entities.
      *
      * @Route("/confirm", name="payment_confirm")
-     * @Template()
      */
     public function confirmAction()
     {
@@ -63,13 +61,25 @@ class PaymentController extends Controller
             $logger->info('PAYMENT CONFIRMATION : '.$key=$value);
         }
         $logger->info('-------------------------');
-        exit();
         
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $entities = $em->getRepository('AppydoShopBundle:Payment')->findAll();
-
-        return array('entities' => $entities);
+        return new Response(1);  
+    }
+    
+    /**
+     * Lists all Payment entities.
+     *
+     * @Route("/cancel", name="payment_cancel")
+     */
+    public function cancelAction()
+    {
+        $logger = $this->get('logger');
+        $logger->info('-------------------------');
+        foreach ($_POST as $key => $value) {
+            $logger->info('PAYMENT CANCEL : '.$key=$value);
+        }
+        $logger->info('-------------------------');
+        
+        return new Response(1);  
     }
 
     /**
