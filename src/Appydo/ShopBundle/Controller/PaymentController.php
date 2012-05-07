@@ -30,6 +30,44 @@ class PaymentController extends Controller
 
         return array('entities' => $entities);
     }
+    
+    /**
+     * payment_validation
+     *
+     * @Route("/payment/validation", name="payment_validation")
+     * @Template()
+     */
+    public function validationAction()
+    {
+        
+        $logger = $this->get('logger');
+        $logger->info('-------------------------');
+        foreach ($_POST as $key => $value) {
+            $logger->info('PAYMENT VALIDATION : '.$key=$value);
+        }
+        $logger->info('-------------------------');
+        exit();
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $entities = $em->getRepository('AppydoShopBundle:Payment')->findAll();
+
+        return array('entities' => $entities);
+    }
+    
+    /**
+     * Lists all Payment entities.
+     *
+     * @Route("/payment/confirm", name="payment_confirm")
+     * @Template()
+     */
+    public function confirmAction()
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $entities = $em->getRepository('AppydoShopBundle:Payment')->findAll();
+
+        return array('entities' => $entities);
+    }
 
     /**
      * Finds and displays a Payment entity.
