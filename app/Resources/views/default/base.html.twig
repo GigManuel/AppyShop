@@ -132,14 +132,14 @@
             </div>
         </div>
         <div class="span2">
-		  {% if project.description %}
+        {% if project and project.description %}
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
               <li class="nav-header">Presentation</li>
               <li>{{ project.description|raw|nl2br }}</li>
             </ul>
           </div>
-		  {% endif %}
+        {% endif %}
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
               <li class="nav-header">Information</li>
