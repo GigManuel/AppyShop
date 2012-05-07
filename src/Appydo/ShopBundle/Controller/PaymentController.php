@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Appydo\ShopBundle\Entity\Payment;
 use Appydo\ShopBundle\Form\PaymentType;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Payment controller.
@@ -34,34 +35,36 @@ class PaymentController extends Controller
     /**
      * payment_validation
      *
-     * @Route("/payment/validation", name="payment_validation")
-     * @Template()
+     * @Route("/validation", name="payment_validation")
      */
     public function validationAction()
     {
-        
         $logger = $this->get('logger');
         $logger->info('-------------------------');
         foreach ($_POST as $key => $value) {
             $logger->info('PAYMENT VALIDATION : '.$key=$value);
         }
         $logger->info('-------------------------');
-        exit();
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $entities = $em->getRepository('AppydoShopBundle:Payment')->findAll();
-
-        return array('entities' => $entities);
+        $response = new Response(json_encode(1));  
+        return $response;  
     }
     
     /**
      * Lists all Payment entities.
      *
-     * @Route("/payment/confirm", name="payment_confirm")
+     * @Route("/confirm", name="payment_confirm")
      * @Template()
      */
     public function confirmAction()
     {
+        $logger = $this->get('logger');
+        $logger->info('-------------------------');
+        foreach ($_POST as $key => $value) {
+            $logger->info('PAYMENT CONFIRMATION : '.$key=$value);
+        }
+        $logger->info('-------------------------');
+        exit();
+        
         $em = $this->getDoctrine()->getEntityManager();
 
         $entities = $em->getRepository('AppydoShopBundle:Payment')->findAll();
